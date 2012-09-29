@@ -1,0 +1,10 @@
+{% extends "base.html" %}
+{% block title %}Inicio{% endblock %}
+
+{% block content %}
+
+{% for Book in Books %}
+	{{ Book }}
+{% endfor %}
+
+{% endblock %}

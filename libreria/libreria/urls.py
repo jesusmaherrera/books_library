@@ -1,11 +1,12 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
-
+from main import views
 admin.autodiscover()
 
 urlpatterns = patterns('',
-	 url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+	(r'^$', views.index),
+	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     # Examples:
     # url(r'^$', 'libreria.views.home', name='home'),
