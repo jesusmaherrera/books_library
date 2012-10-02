@@ -23,7 +23,41 @@
 <body>
   <header>
 	{% block header %}{% endblock %}
+  <div id="navbar-example" class="navbar navbar-static">
+    <div class="navbar-inner">
+      <div class="container" style="width: auto;">
+        <a class="brand" href="#"><i class="icon-home"></i> Libreria</a>
+        <ul class="nav" role="navigation">
+          <li class="dropdown">
+            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">libros<b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+              <li><a tabindex="-1" href="/books/">Catalogo</a></li>
+              <li><a tabindex="-1" href="/book/">buevo libro</a></li>
+              <li class="divider"></li>
+              <li><a tabindex="-1" href="#anotherAction">Categorias</a></li>
+              <li><a tabindex="-1" href="#">SubCategorias</a></li>
+            </ul>
+          </li>
+        </ul>
+        <!-- <ul class="nav pull-right">
+          <li id="fat-menu" class="dropdown">
+            <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Dropdown 3 <b class="caret"></b></a>
+            <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
+              <li><a tabindex="-1" href="#">Action</a></li>
+              <li><a tabindex="-1" href="#">Another action</a></li>
+              <li><a tabindex="-1" href="#">Something else here</a></li>
+              <li class="divider"></li>
+              <li><a tabindex="-1" href="#">Separated link</a></li>
+            </ul>
+          </li>
+        </ul> -->
+      </div>
+    </div>
+  </div>
   </header>	
+  <div id="breadcrumbs" style="margin-left: 35px;">
+    {% block breadcrumb %}<a href="/"><i class="icon-home"></i></a>{% endblock %}
+  </div>
   <section class='content'>
 	{% block content %}{% endblock %}
   </section>

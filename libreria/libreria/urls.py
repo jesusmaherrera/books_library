@@ -6,8 +6,15 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	(r'^$', views.index),
+    (r'^books/$', views.booksView),
+    (r'^book/$', views.book_manageView),
+    (r'^book/(?P<id>\d+)/', views.book_manageView),
 	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
+    #imagenes
+    url(r'^media/(?P<path>.*)$','django.views.static.serve',
+        {'document_root':settings.MEDIA_ROOT,}
+    ),
     # Examples:
     # url(r'^$', 'libreria.views.home', name='home'),
     # url(r'^libreria/', include('libreria.foo.urls')),

@@ -1,0 +1,20 @@
+{% extends "book/base.html" %}
+{% block title %}Libros{% endblock %}
+{% block js_code %}{% endblock %}
+{% block content %}
+<h2>Libro</h2>
+<form enctype='multipart/form-data' form action='.' method='post'>
+  {% csrf_token %}
+  <br>
+  <div style="text-align:left;">
+    <span class="span3" style="clear:both;">
+      {{ BookForm }}
+    </span>
+  </div>
+  <br>
+  <p class="form-actions" style="clear:both;">
+    <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+  </p>  
+</form>
+<br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

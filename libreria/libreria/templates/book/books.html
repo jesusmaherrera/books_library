@@ -1,0 +1,7 @@
+{% extends "book/base.html" %}
+{% block title %}Libros{% endblock %}
+{% block content %}
+{% for Book in Books %}
+	<a href='/book/{{Book.id}}'><img src='{{MEDIA_URL}}{{Book.image}}' style="height: 150px; width: 100px; margin-top:.5em; margin-bottom:.5em;"/></a>
+{% endfor %}
+{% endblock %}
