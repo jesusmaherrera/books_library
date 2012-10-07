@@ -33,8 +33,8 @@ class Book(models.Model):
 
 	def __unicode__(self):
 		return self.code
-#USERS
 
+#USERS
 class Guarantor(models.Model):
 	name = models.CharField(max_length=40)
 	age = models.CharField(max_length=3)
@@ -47,16 +47,42 @@ class Guarantor(models.Model):
 	def __unicode__(self):
 		return self.name
 		
-class User(models.Model):
+class LibraryUser(models.Model):
 	name = models.CharField(max_length=40)
 	age = models.CharField(max_length=3)
+	#DIRECCION
 	address = models.CharField(max_length=60)
 	postal_code = models.CharField(max_length=5)
+	
 	phone = models.CharField(max_length=10)
+
 	occupation = models.CharField(max_length=30)
 	institution = models.CharField(max_length=30)
 	institution_userid = models.CharField(max_length=10)
+	
 	guarantor = models.ForeignKey(Guarantor, on_delete=models.SET_NULL, blank=True, null=True)
 
 	def __unicode__(self):
 		return self.name
+
+class Loan(models.Model):
+	user = models.ForeignKey(LibraryUser, on_delete=models.SET_NULL, blank=True, null=True)
+	loan_date = models.DateTimeField()
+	delivery_date = models.DateTimeField(blank=True, null=True)
+	LOAN_TYPE = (
+		('L', 'LIBRO'),
+		('LD', 'LIBRO A DOMICILIO'),
+		('C', 'COMPUTADORA'),
+		)
+	loan_type = models.CharField(max_length=10, choices=LOAN_TYPE, default='C')
+	description = models.CharField(max_length=100,blank= True, null =True)
+
+class BookLoan(models.Model):
+	loan = models.ForeignKey(Loan, on_delete=models.SET_NULL, blank=True, null=True)
+	book = models.ForeignKey(Book, on_delete=models.SET_NULL, blank=True, null=True)
+	BOOK_STATE = (
+		('B', 'BUENO'),
+		('N', 'NORMAL'),
+		)
+	state = models.CharField(max_length=10, choices=BOOK_STATE,
+		default='N')

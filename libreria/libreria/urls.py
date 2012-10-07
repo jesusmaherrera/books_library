@@ -9,6 +9,11 @@ urlpatterns = patterns('',
     (r'^books/$', views.booksView),
     (r'^book/$', views.book_manageView),
     (r'^book/(?P<id>\d+)/', views.book_manageView),
+
+    (r'^bookclassifications/$', views.bookclassificationsView),
+    (r'^bookclassification/$', views.bookclassification_manageView),
+    (r'^bookclassification/(?P<id>\d+)/', views.bookclassification_manageView),
+
 	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
     #imagenes

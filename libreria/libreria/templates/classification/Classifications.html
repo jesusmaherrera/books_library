@@ -1,0 +1,7 @@
+{% extends "book/base.html" %}
+{% block title %}Clacificaciones{% endblock %}
+{% block content %}
+{% for Classification in Classifications %}
+	<a href='/bookclassification/{{Classification.id}}'><img src='{{MEDIA_URL}}{{Classification.image}}' style="height: 150px; width: 100px; margin-top:.5em; margin-bottom:.5em;"/></a>
+{% endfor %}
+{% endblock %}

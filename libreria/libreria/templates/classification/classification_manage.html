@@ -1,0 +1,26 @@
+{% extends "book/base.html" %}
+{% block title %}Libros{% endblock %}
+{% block js_code %}{% endblock %}
+{% block content %}
+<h2>Clacificacion</h2>
+<form method="post" action="" width="400px"  enctype='multipart/form-data'>
+  {% csrf_token %}
+  <br>
+  {{ ClassificationForm.errors }}
+  <div style="text-align:left;">
+    <span class="span3" style="clear:both;">
+      Nombre
+      {{ ClassificationForm.name }}
+    </span>
+    <span class="span3" style="clear:both;">
+      Imagen
+      {{ ClassificationForm.image }}
+    </span>
+  </div>
+  <br>
+  <p class="form-actions" style="clear:both;">
+    <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+  </p>  
+</form>
+<br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}
