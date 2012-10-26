@@ -3,56 +3,87 @@
 {% block js_code %}{% endblock %}
 {% block content %}
 <h2>Libro</h2>
-<form method="post" action="" width="400px"  enctype='multipart/form-data'>
+<form method="post"  class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
   {% csrf_token %}
   <br>
   {{ BookForm.errors }}
-  <div style="text-align:left;">
-    <span class="span3" style="clear:both;">
-      codigo
+  <div class="control-group">
+    <label class="control-label" for="id_code">Codigo</label>
+    <div class="controls">
       {{ BookForm.code }}
-    </span>
-      <span class="span3" style="clear:both;">
-        nombre
-      {{ BookForm.name }}
-    </span>
-      <span class="span3" style="clear:both;">
-        Imagen
-      {{ BookForm.image }}
-    </span>
-    <span class="span3" style="clear:both;">
-      {{ BookForm.book_classification }}
-    </span>
-    <span class="span3" style="clear:both;">
-      {{ BookForm.book_subclassification }}
-    </span>
-
-    <span class="span3" style="clear:both;">
-      {{ BookForm.autor }}
-    </span>
-    <span class="span3" style="clear:both;">
-      {{ BookForm.volume }}
-    </span>
-    <span class="span3" style="clear:both;">
-      {{ BookForm.exemplar }}
-    </span>
-    <span class="span3" style="clear:both;">
-      {{ BookForm.editorial }}
-    </span>
-    <span class="span3" style="clear:both;">
-      {{ BookForm.description }}
-    </span>
-    <span class="span3" style="clear:both;">
-      {{ BookForm.location }}
-    </span>
-    <span class="span3" style="clear:both;">
-      {{ BookForm.donor }}
-    </span>
+    </div>
   </div>
-  <br>
-  <p class="form-actions" style="clear:both;">
-    <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
-  </p>  
+  <div class="control-group">
+    <label class="control-label" for="id_code">Nombre</label>
+    <div class="controls">
+      {{ BookForm.name }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Imagen</label>
+    <div class="controls">
+      {{ BookForm.image }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Clasificacion</label>
+    <div class="controls">
+      {{ BookForm.book_classification }}
+    </div>  
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Sub Clasificacion</label>
+    <div class="controls">
+      {{ BookForm.book_subclassification }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Autor</label>
+    <div class="controls">
+      {{ BookForm.autor }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Volumen</label>
+    <div class="controls">
+      {{ BookForm.volume }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Ejemplar</label>
+    <div class="controls">
+      {{ BookForm.exemplar }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Editorial</label>
+    <div class="controls">
+      {{ BookForm.editorial }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Descripcion</label>
+    <div class="controls">
+      {{ BookForm.description }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Lugar</label>
+    <div class="controls">
+      {{ BookForm.location }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Donador</label>
+    <div class="controls">
+      {{ BookForm.donor }}
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+    </div>
+  </div>
 </form>
 <br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}

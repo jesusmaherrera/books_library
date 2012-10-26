@@ -1,0 +1,7 @@
+{% extends "book/base.html" %}
+{% block title %}Clacificaciones{% endblock %}
+{% block content %}
+{% for Guarantor in Guarantors %}
+	{{Guarantor.name}}<br>
+{% endfor %}
+{% endblock %}

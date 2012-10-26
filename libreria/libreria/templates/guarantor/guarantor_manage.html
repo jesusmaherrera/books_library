@@ -1,0 +1,59 @@
+{% extends "book/base.html" %}
+{% block title %}Libros{% endblock %}
+{% block js_code %}{% endblock %}
+{% block content %}
+<h2>Fiador</h2>
+<form method="post" class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
+  {% csrf_token %}
+  <br>
+  {{ GuarantorForm.errors }}
+  <div class="control-group">
+    <label class="control-label" for="id_code">Nombre</label>
+    <div class="controls">
+      {{ GuarantorForm.name }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Edad</label>
+    <div class="controls">
+      {{ GuarantorForm.age }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Direccion</label>
+    <div class="controls">
+      {{ GuarantorForm.address }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Codigo Postal</label>
+    <div class="controls">
+      {{ GuarantorForm.postal_code }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Telefono</label>
+    <div class="controls">
+      {{ GuarantorForm.phone }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Ocupacion</label>
+    <div class="controls">
+      {{ GuarantorForm.occupation }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Institucion</label>
+    <div class="controls">
+      {{ GuarantorForm.institution }}
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+    </div>
+  </div>
+</form>
+<br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

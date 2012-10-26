@@ -3,24 +3,27 @@
 {% block js_code %}{% endblock %}
 {% block content %}
 <h2>Clacificacion</h2>
-<form method="post" action="" width="400px"  enctype='multipart/form-data'>
+<form method="post" class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
   {% csrf_token %}
   <br>
   {{ ClassificationForm.errors }}
-  <div style="text-align:left;">
-    <span class="span3" style="clear:both;">
-      Nombre
+  <div class="control-group">
+    <label class="control-label" for="id_code">Nombre</label>
+    <div class="controls">
       {{ ClassificationForm.name }}
-    </span>
-    <span class="span3" style="clear:both;">
-      Imagen
-      {{ ClassificationForm.image }}
-    </span>
+    </div>
   </div>
-  <br>
-  <p class="form-actions" style="clear:both;">
-    <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
-  </p>  
+  <div class="control-group">
+    <label class="control-label" for="id_code">Imagen</label>
+    <div class="controls">
+      {{ ClassificationForm.image }}
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+    </div>
+  </div>
 </form>
 <br><br><br><br><br><br><br><br><br><br><br>
 {% endblock %}

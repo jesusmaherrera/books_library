@@ -9,6 +9,14 @@ urlpatterns = patterns('',
     (r'^books/$', views.booksView),
     (r'^book/$', views.book_manageView),
     (r'^book/(?P<id>\d+)/', views.book_manageView),
+    
+    (r'^users/$', views.usersView),
+    (r'^user/$', views.user_manageView),
+    (r'^user/(?P<id>\d+)/', views.user_manageView),
+
+    (r'^guarantors/$', views.guarantorsView),
+    (r'^guarantor/$', views.guarantor_manageView),
+    (r'^guarantor/(?P<id>\d+)/', views.guarantor_manageView),
 
     (r'^bookclassifications/$', views.bookclassificationsView),
     (r'^bookclassification/$', views.bookclassification_manageView),

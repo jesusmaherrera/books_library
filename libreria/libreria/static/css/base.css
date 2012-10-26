@@ -1,3 +1,50 @@
+body{
+	font-family: 'Marcellus SC', serif;
+	background: #fff url(../img/wood-bg.jpg);
+	color: #584941;
+	text-shadow: 0 1px 1px rgba(255, 255, 255, .5);
+}
+
 footer{
+	clear: both;
 	text-align: center;
 }
+
+dd{
+	margin-left: 10px;
+}
+
+ul{
+	list-style-type: square;
+}
+
+.description{
+	font-size: .7em;
+}
+
+.frame { padding: 5px; border: 1px solid #aaa; }
+.align-left { float:left; }
+
+
+ul.polaroids { width: 970px; margin: 0 0 18px -30px; }
+ul.polaroids li { display: inline; }
+ul.polaroids a { background: #fff; display: inline; float: left; margin: 0 0 27px 30px; width: auto; padding: 10px 10px 15px; text-align: center; text-decoration: none; color: #333; font-size: 10px; -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.25); -moz-box-shadow: 0 3px 6px rgba(0,0,0,.25); -webkit-transform: rotate(-2deg); -webkit-transition: -webkit-transform .15s linear; -moz-transform: rotate(-2deg);  width: 100px;}
+ul.polaroids img { display: block; width: 190px; margin-bottom: 12px; }
+ul.polaroids a:after { content: attr(title); }
+
+ul.polaroids li:nth-child(even) a { -webkit-transform: rotate(2deg);  -moz-transform: rotate(2deg); }
+ul.polaroids li:nth-child(3n) a { -webkit-transform: none; position: relative; top: -5px;  -moz-transform: none; }
+ul.polaroids li:nth-child(5n) a { -webkit-transform: rotate(5deg); position: relative; right: 5px;  -moz-transform: rotate(5deg); }
+ul.polaroids li:nth-child(8n) a { position: relative; right: 5px; top: 8px; }
+ul.polaroids li:nth-child(11n) a { position: relative; left: -5px; top: 3px; }
+
+ul.polaroids li.messy a { margin-top: -375px; margin-left: 160px; -webkit-transform: rotate(-5deg); -moz-transform: rotate(-5deg); }
+
+ul.polaroids li a:hover { -webkit-transform: scale(1.25); -moz-transform: scale(1.25); -webkit-box-shadow: 0 3px 6px rgba(0,0,0,.5); -moz-box-shadow: 0 3px 6px rgba(0,0,0,.5); position: relative; z-index: 5; }
+
+code { background: rgba(0,0,0,.5); padding: 2px 3px; color: #fff; text-shadow: 0 1px 1px rgba(0,0,0,.75); -webkit-border-radius: 3px; -moz-border-radius: 3px; }
+
+ol.code { background: rgba(0,0,0,.75); margin-bottom: 18px; border: solid rgba(0,0,0,.75); border-width: 1px 1px 0; -webkit-border-radius: 3px; -moz-border-radius: 3px; -webkit-box-shadow: 0 1px 1px rgba(255,255,255,.5); }
+ol.code li, ol.code li code { font-size: 14px !important; }
+ol.code code { background: none; }
+

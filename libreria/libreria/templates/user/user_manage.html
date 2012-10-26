@@ -1,0 +1,66 @@
+{% extends "book/base.html" %}
+{% block title %}Libros{% endblock %}
+{% block js_code %}{% endblock %}
+{% block content %}
+<h2>Usuarios</h2>
+<form method="post" class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
+  {% csrf_token %}
+  <br>
+  {{ UserForm.errors }}
+  <div class="control-group">
+    <label class="control-label" for="id_code">Nombre</label>
+    <div class="controls">
+      {{ UserForm.name }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Edad</label>
+    <div class="controls">
+      {{ UserForm.age }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Direccion</label>
+    <div class="controls">
+      {{ UserForm.address }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Codigo Postal</label>
+    <div class="controls">
+      {{ UserForm.postal_code }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Telefono</label>
+    <div class="controls">
+      {{ UserForm.phone }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Ocupacion</label>
+    <div class="controls">
+      {{ UserForm.occupation }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Institucion</label>
+    <div class="controls">
+      {{ UserForm.institution }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Fiador</label>
+    <div class="controls">
+      {{ UserForm.guarantor }} 
+      <a href="/guarantor/"><i class="icon-plus"></i></a>
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+    </div>
+  </div>
+</form>
+<br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

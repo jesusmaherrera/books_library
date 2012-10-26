@@ -1,0 +1,7 @@
+{% extends "book/base.html" %}
+{% block title %}Usuarios{% endblock %}
+{% block content %}
+{% for User in Users %}
+	<a href='/user/{{User.id}}'>{{User.name}}</a><br>
+{% endfor %}
+{% endblock %}

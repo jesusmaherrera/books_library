@@ -58,7 +58,7 @@ class LibraryUser(models.Model):
 
 	occupation = models.CharField(max_length=30)
 	institution = models.CharField(max_length=30)
-	institution_userid = models.CharField(max_length=10)
+	institution_userid = models.CharField(max_length=10, blank=True, null=True)
 	
 	guarantor = models.ForeignKey(Guarantor, on_delete=models.SET_NULL, blank=True, null=True)
 

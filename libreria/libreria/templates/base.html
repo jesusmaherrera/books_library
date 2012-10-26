@@ -7,6 +7,7 @@
   <!-- Estilos -->
   <link rel='stylesheet' href='{{STATIC_URL}}css/bootstrap.css'/>
   <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'/>
+  <link href='http://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
   {% block style_css %}{% endblock %}
 
   <link rel='shortcut icon' href='{{STATIC_URL}}img/icono.png'>
@@ -17,6 +18,7 @@
   <script src='{{STATIC_URL}}js/jquery-ui-1.8.23.custom.min.js'></script>
   <script src='{{STATIC_URL}}js/jquery-ui-timepicker.js'></script>
   <script src='{{STATIC_URL}}js/jquery.printPage.js' ></script>
+
   {% block js_code %}{% endblock %}
 
 </head>
@@ -50,8 +52,8 @@
           <li class="dropdown">
             <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Usuarios<b class="caret"></b></a>
             <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-              <li><a tabindex="-1" href="/books/">Catalogo</a></li>
-              <li><a tabindex="-1" href="/book/">Nuevo Usuario</a></li>
+              <li><a tabindex="-1" href="/users/">Catalogo</a></li>
+              <li><a tabindex="-1" href="/user/">Nuevo Usuario</a></li>
             </ul>
           </li>
         </ul>
