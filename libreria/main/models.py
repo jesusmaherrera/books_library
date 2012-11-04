@@ -1,5 +1,6 @@
 #encoding:utf-8
 from django.db import models
+from datetime import datetime 
 
 #BOOKS
 class BookClassification(models.Model):
@@ -32,7 +33,7 @@ class Book(models.Model):
 	donor = models.CharField(max_length=35)
 
 	def __unicode__(self):
-		return self.code
+		return self.name
 
 #USERS
 class Guarantor(models.Model):
@@ -67,8 +68,8 @@ class LibraryUser(models.Model):
 
 class Loan(models.Model):
 	user = models.ForeignKey(LibraryUser, on_delete=models.SET_NULL, blank=True, null=True)
-	loan_date = models.DateTimeField()
-	delivery_date = models.DateTimeField(blank=True, null=True)
+	loan_date = models.DateTimeField(default=datetime.now(),blank=True)
+	delivery_date = models.DateTimeField(default=datetime.now(), blank=True, null=True)
 	LOAN_TYPE = (
 		('L', 'LIBRO'),
 		('LD', 'LIBRO A DOMICILIO'),

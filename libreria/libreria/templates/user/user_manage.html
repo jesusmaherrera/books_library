@@ -1,6 +1,12 @@
 {% extends "book/base.html" %}
 {% block title %}Libros{% endblock %}
-{% block js_code %}{% endblock %}
+{% block js_code %}
+<script>
+   $(document).ready(function() {
+     $('#metadata-link').modal({show:false});
+   });
+ </script>
+ {% endblock %}
 {% block content %}
 <h2>Usuarios</h2>
 <form method="post" class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
@@ -53,8 +59,13 @@
     <label class="control-label" for="id_code">Fiador</label>
     <div class="controls">
       {{ UserForm.guarantor }} 
-      <a href="/guarantor/"><i class="icon-plus"></i></a>
+      <a href="/guarantor/" ><i class="icon-plus"></i></a>
     </div>
+ <div id="modal" class="modal hide fade in" style="display:none;">
+   <div class="modal-header">Nuevo Fiador<a class="close" data-dismiss="modal">x</a></div>
+   <div class="modal-body"></div>
+   <div class="model-footer"></div>
+ </div>
   </div>
   <div class="control-group">
     <div class="controls">

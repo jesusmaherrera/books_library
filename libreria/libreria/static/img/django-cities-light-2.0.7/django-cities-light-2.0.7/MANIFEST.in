@@ -1,0 +1,2 @@
+include *.rst *.txt README LICENSE AUTHORS CHANGELOG
+recursive-include cities_light *.html *.css *.js *.py

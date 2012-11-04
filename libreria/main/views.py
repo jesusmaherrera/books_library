@@ -1,8 +1,12 @@
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
-from main.models import Book, BookClassification, LibraryUser, Guarantor
-from main.forms import BookManageForm, BookClassificationManageForm, LibraryUserManageForm, GuarantorManageForm
+from main.models import Book, BookClassification, LibraryUser, Guarantor, Loan
+from main.forms import BookManageForm, BookClassificationManageForm, LibraryUserManageForm, GuarantorManageForm, LoanManageForm
+from main.forms import *
+
+from django.forms.formsets import formset_factory, BaseFormSet
+from django.forms.models import inlineformset_factory
 
 #@login_required(login_url='/login/')
 def index(request):
@@ -15,6 +19,22 @@ def index(request):
 ##           Books             ##
 ##                             ##
 #################################
+def books_search(request):
+   	# Default return list
+   	Books = Book.objects.all()
+   	results = []
+
+	for book in Books:
+   		libro = {'id':book.id, 'label':book.name, 'value':book.name}
+   		results.append(libro)
+   	return HttpResponse(simplejson.dumps(results),mimetype='application/json')
+
+def xhr_test(request):
+    if request.is_ajax():
+        message = "Hello AJAX"
+    else:
+        message = "Hello"
+    return HttpResponse(message)
 
 def booksView(request):
 	Books = Book.objects.all()
@@ -129,3 +149,40 @@ def guarantor_manageView(request, id = None, template_name='guarantor/guarantor_
 
 	return render_to_response(template_name, {'GuarantorForm': GuarantorForm,}
 			,context_instance = RequestContext(request))
+
+#################################
+##                             ##
+##           Loan              ##
+##                             ##
+#################################
+
+def loansView(request):
+	Loans = Loan.objects.all()
+	c = {'Loans':Loans}
+  	return render_to_response('loan/loans.html', c, context_instance=RequestContext(request))
+
+def loan_manage_inlineView(request, id = None, template_name='loan/loan_manage_inline.html'):
+	BookLoan_formset = get_bookloan_items_formset(BookLoanManageForm, extra=1, can_delete=True)
+
+	if id:
+		loanI = get_object_or_404(Loan, pk=id)
+	else:
+		loanI = Loan()
+
+	if request.method == 'POST':
+
+		LoanForm = LoanManageForm(request.POST, request.FILES, instance=loanI)
+		formset = BookLoan_formset(request.POST, request.FILES, instance=loanI)
+		if LoanForm.is_valid() and formset.is_valid():
+			LoanForm.save()
+			formset.save()
+
+			Loans = Loan.objects.all()
+			c = {'Loans':Loans}
+
+			return render_to_response(template_name, {'LoanForm': LoanForm, 'formset': formset}, context_instance=RequestContext(request))
+	else:
+	 	LoanForm = LoanManageForm(instance=loanI)
+	 	formset = BookLoan_formset(instance=loanI)
+
+	return render_to_response(template_name, {'LoanForm': LoanForm, 'formset': formset}, context_instance=RequestContext(request))

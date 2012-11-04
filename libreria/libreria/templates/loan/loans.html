@@ -1,0 +1,8 @@
+{% extends "loan/base.html" %}
+{% block title %}Clacificaciones{% endblock %}
+{% block content %}
+{% for Loan in Loans %}
+	<a href="/loan/{{ Loan.id }}">{{Loan.user}}<br>
+	{{Loan.loan_date}}<br></a>
+{% endfor %}
+{% endblock %}

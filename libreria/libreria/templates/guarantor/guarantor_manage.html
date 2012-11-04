@@ -1,8 +1,7 @@
-{% extends "book/base.html" %}
+{% extends "base_popmodal.html" %}
 {% block title %}Libros{% endblock %}
 {% block js_code %}{% endblock %}
 {% block content %}
-<h2>Fiador</h2>
 <form method="post" class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
   {% csrf_token %}
   <br>

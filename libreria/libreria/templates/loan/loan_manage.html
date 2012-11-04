@@ -1,0 +1,157 @@
+{% extends "loan/base.html" %}
+{% block title %}Prestamos{% endblock %}
+{% block style_css %}
+<style>
+.ui-autocomplete-loading {
+  background: white url('{{STATIC_URL}}img/ui-anim_basic_16x16.gif') right center no-repeat;
+}
+#book { width: 25em; }
+</style>
+{% endblock %}
+
+{% block js_code %}
+<script>
+$(function() {
+$.get("/search/", function(data) {
+        alert(data);
+    });
+});
+    // $(function() {
+    //   $.get("/search/", function(data) {
+    //     alert(data);
+    //   });
+    //     var availableTags = [
+    //         "ActionScript",
+    //         "AppleScript",
+    //         "Asp",
+    //         "BASIC",
+    //         "C",
+    //         "C++",
+    //         "Clojure",
+    //         "COBOL",
+    //         "ColdFusion",
+    //         "Erlang",
+    //         "Fortran",
+    //         "Groovy",
+    //         "Haskell",
+    //         "Java",
+    //         "JavaScript",
+    //         "Lisp",
+    //         "Perl",
+    //         "PHP",
+    //         "Python",
+    //         "Ruby",
+    //         "Scala",
+    //         "Scheme"
+    //     ];
+    //     // $( "#book" ).autocomplete({
+    //     //     source: availableTags
+    //     // });
+   // });
+
+    </script>
+
+
+     <script>
+    // $(function() {
+    //     function log( message ) {
+    //         $( "<div>" ).text( message ).prependTo( "#log" );
+    //         $( "#log" ).scrollTop( 0 );
+    //     }
+ 
+    //     $( "#book" ).autocomplete({
+    //         source: function( request, response ) {
+    //             $.ajax({
+    //                 url: "/search/",
+    //                 dataType: "jsonp",
+    //                 data: {
+    //                     featureClass: "P",
+    //                     style: "full",
+    //                     maxRows: 12,
+    //                     name_startsWith: request.term
+    //                 },
+    //                 success: function( data ) {
+    //                     response( $.map( data.geonames, function( item ) {
+    //                         return {
+    //                             label: item.name + (item.adminName1 ? ", " + item.adminName1 : "") + ", " + item.countryName,
+    //                             value: item.name
+    //                         }
+    //                     }));
+    //                 }
+    //             });
+    //         },
+    //         minLength: 2,
+    //         select: function( event, ui ) {
+    //             log( ui.item ?
+    //                 "Selected: " + ui.item.label :
+    //                 "Nothing selected, input was " + this.value);
+    //         },
+    //         open: function() {
+    //             $( this ).removeClass( "ui-corner-all" ).addClass( "ui-corner-top" );
+    //         },
+    //         close: function() {
+    //             $( this ).removeClass( "ui-corner-top" ).addClass( "ui-corner-all" );
+    //         }
+    //     });
+    // });
+    // </script>
+{% endblock %}
+{% block content %}
+<div class="ui-widget">
+    <label for="book">Your city: </label>
+    <input id="book" />
+    Powered by <a href="http://geonames.org">geonames.org</a>
+</div>
+ 
+<div class="ui-widget" style="margin-top: 2em; font-family: Arial;">
+    Result:
+    <div id="log" style="height: 200px; width: 300px; overflow: auto;" class="ui-widget-content"></div>
+</div>
+<!-- <form method="post" class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
+  {% csrf_token %}
+  <br>
+  {{ LoanForm.errors }}
+  <div class="control-group">
+    <label class="control-label" for="id_code">Usuario</label>
+    <div class="controls">
+      {{ LoanForm.user }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Fecha de prestamo</label>
+    <div class="controls">
+      {{ LoanForm.loan_date }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Fecha de devolucion</label>
+    <div class="controls">
+      {{ LoanForm.delivery_date }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Tipo de prestamo</label>
+    <div class="controls">
+      {{ LoanForm.loan_type }}
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Libros</label>
+    <div class="controls">
+      <input placeholder="Libro" type="text"></input><a href="/guarantor/"><i class="icon-search"></i></a> Estado: <select></select> <input class="span5" type="text" placeholder="Escribe aqui una descripcion de el estado del libro..."></input> <a href="/guarantor/"><i class="icon-plus"></i></a>
+    </div>
+  </div>
+  <div class="control-group">
+    <label class="control-label" for="id_code">Descripcion</label>
+    <div class="controls">
+      {{ LoanForm.description }}
+    </div>
+  </div>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+    </div>
+  </div>
+</form> -->
+<br><br><br><br><br><br><br><br><br><br><br>
+{% endblock %}

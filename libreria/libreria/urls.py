@@ -10,6 +10,8 @@ urlpatterns = patterns('',
     (r'^book/$', views.book_manageView),
     (r'^book/(?P<id>\d+)/', views.book_manageView),
     
+    (r'^search/$','views.xhr_test'),
+
     (r'^users/$', views.usersView),
     (r'^user/$', views.user_manageView),
     (r'^user/(?P<id>\d+)/', views.user_manageView),
@@ -21,6 +23,10 @@ urlpatterns = patterns('',
     (r'^bookclassifications/$', views.bookclassificationsView),
     (r'^bookclassification/$', views.bookclassification_manageView),
     (r'^bookclassification/(?P<id>\d+)/', views.bookclassification_manageView),
+
+    (r'^loans/$', views.loansView),
+    (r'^loan/$', views.loan_manage_inlineView),
+    (r'^loan/(?P<id>\d+)/', views.loan_manage_inlineView),
 
 	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),

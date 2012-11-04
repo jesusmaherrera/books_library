@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang='es'>
+<head>
+  <meta charset='utf-8'>
+  <title>libreria {% block title %}{% endblock %}</title>
+
+  <!-- Estilos -->
+  <link rel='stylesheet' href='{{STATIC_URL}}css/bootstrap.css'/>
+  <link rel='stylesheet' href='{{STATIC_URL}}css/base.css'/>
+  <link href='http://fonts.googleapis.com/css?family=Marcellus+SC' rel='stylesheet' type='text/css'>
+  {% block style_css %}{% endblock %}
+
+  <link rel='shortcut icon' href='{{STATIC_URL}}img/icono.png'>
+   
+  <script src='{{STATIC_URL}}js/jquery.min.js' ></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" ></script>
+  <script src='{{STATIC_URL}}js/bootstrap.js' ></script>
+  <script src='{{STATIC_URL}}js/jquery-ui-1.8.23.custom.min.js'></script>
+  <script src='{{STATIC_URL}}js/jquery-ui-timepicker.js'></script>
+  <script src='{{STATIC_URL}}js/jquery.printPage.js' ></script>
+  {% block js_code %}{% endblock %}
+</head>
+<body>
+  <section class='content'>
+	{% block content %}{% endblock %}
+  </section>
+</body>
+</html>

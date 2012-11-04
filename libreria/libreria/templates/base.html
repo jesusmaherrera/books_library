@@ -11,7 +11,7 @@
   {% block style_css %}{% endblock %}
 
   <link rel='shortcut icon' href='{{STATIC_URL}}img/icono.png'>
-   
+
   <script src='{{STATIC_URL}}js/jquery.min.js' ></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.0/jquery.min.js" ></script>
   <script src='{{STATIC_URL}}js/bootstrap.js' ></script>
@@ -20,67 +20,54 @@
   <script src='{{STATIC_URL}}js/jquery.printPage.js' ></script>
 
   {% block js_code %}{% endblock %}
-
 </head>
 <body>
   <header>
-	{% block header %}{% endblock %}
-  <div id="navbar-example" class="navbar navbar-static">
-    <div class="navbar-inner">
-      <div class="container" style="width: auto;">
-        <a class="brand" href="#"><i class="icon-home"></i> Libreria</a>
-        <ul class="nav" role="navigation">
-          <li class="dropdown">
-            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">libros<b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-              <li><a tabindex="-1" href="/books/">Catalogo</a></li>
-              <li><a tabindex="-1" href="/book/">Nuevo libro</a></li>
-              <li class="divider"></li>
-              <li><a tabindex="-1" href="/bookclassifications/">Categorias</a></li>
-              <li><a tabindex="-1" href="/bookclassification/">Nueva Categoria</a></li>
-              <li class="divider"></li>
-              <li><a tabindex="-1" href="#">SubCategorias</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Prestamos<b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-              <li><a tabindex="-1" href="/books/">Catalogo</a></li>
-              <li><a tabindex="-1" href="/book/">Nuevo Prestamo</a></li>
-            </ul>
-          </li>
-          <li class="dropdown">
-            <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Usuarios<b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-              <li><a tabindex="-1" href="/users/">Catalogo</a></li>
-              <li><a tabindex="-1" href="/user/">Nuevo Usuario</a></li>
-            </ul>
-          </li>
-        </ul>
-        <!-- <ul class="nav pull-right">
-          <li id="fat-menu" class="dropdown">
-            <a href="#" id="drop3" role="button" class="dropdown-toggle" data-toggle="dropdown">Dropdown 3 <b class="caret"></b></a>
-            <ul class="dropdown-menu" role="menu" aria-labelledby="drop3">
-              <li><a tabindex="-1" href="#">Action</a></li>
-              <li><a tabindex="-1" href="#">Another action</a></li>
-              <li><a tabindex="-1" href="#">Something else here</a></li>
-              <li class="divider"></li>
-              <li><a tabindex="-1" href="#">Separated link</a></li>
-            </ul>
-          </li>
-        </ul> -->
+    {% block header %}{% endblock %}
+    <div id="navbar-example" class="navbar navbar-static">
+      <div class="navbar-inner">
+        <div class="container" style="width: auto;">
+          <a class="brand" href="#"><i class="icon-home"></i> Libreria</a>
+          <ul class="nav" role="navigation">
+            <li class="dropdown">
+              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Nuevo<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                 <li><a tabindex="-1" href="/loan/">Prestamo</a></li>
+                 <li class="divider"></li>
+                 <li><a tabindex="-1" href="/book/">libro</a></li>
+                 <li class="divider"></li>
+                 <li><a tabindex="-1" href="/bookclassification/">Categoria</a></li>
+                 <li><a tabindex="-1" href="#">SubCategorias</a></li>
+                 <li class="divider"></li>
+                 <li><a tabindex="-1" href="/user/">Usuario</a></li>
+              </ul>
+           </li>
+           <li class="dropdown">
+              <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown">Ver<b class="caret"></b></a>
+              <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
+                <li><a tabindex="-1" href="/books/">Libros</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="/bookclassifications/">Clasificaciones</a></li>
+                <li><a tabindex="-1" href="#">SubCategorias</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="/loans/">Prestamos</a></li>
+                <li class="divider"></li>
+                <li><a tabindex="-1" href="/users/">Usuarios</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
-  </div>
   </header>	
   <div id="breadcrumbs" style="margin-left: 35px;">
     {% block breadcrumb %}<a href="/"><i class="icon-home"></i></a>{% endblock %}
   </div>
   <section class='content'>
-	{% block content %}{% endblock %}
+  	{% block content %}{% endblock %}
   </section>
   <footer>
-	Libreria &copy; 2012
+  	Libreria &copy; 2012
   </footer>
 </body>
 </html>
