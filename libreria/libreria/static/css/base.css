@@ -48,3 +48,10 @@ ol.code { background: rgba(0,0,0,.75); margin-bottom: 18px; border: solid rgba(0
 ol.code li, ol.code li code { font-size: 14px !important; }
 ol.code code { background: none; }
 
+.report{
+	background-color: white;
+}
+
+.titlecenter{
+	text-align: center;
+}

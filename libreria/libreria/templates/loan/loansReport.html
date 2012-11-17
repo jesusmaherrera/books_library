@@ -1,0 +1,209 @@
+{% extends "loan/base.html" %}
+{% block title %}Clacificaciones{% endblock %}
+{% block content %}
+
+<div class="report">
+	<div>
+		<img id="logo" src='{{STATIC_URL}}img/logotipocnca.jpg'/>
+	</div>
+	<div class="titlecenter">
+		<br>
+		<h4>RED NACIONAL DE BIBLIOTECAS PÚBLICAS</h4>
+		<h4>ESTADISTICA MENSUAL</h4>
+		<br>
+	</div>
+	<table class="table">
+		<tr>
+			<td>BIBLIOTECA</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>TIPO DE BIBIOTECA</td>
+			<td></td>
+			<td>INSTITUCIÓN</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>LOCALIDAD</td>
+			<td></td>
+			<td>MUNICIPIO</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ESTADO</td>
+			<td></td>
+			<td>ENCARGADO(A)</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>MES QUE REPORTA</td>
+			<td></td>
+			<td>FECHA DE ELABORACIÓN</td>
+			<td></td>
+		</tr>
+	</table>
+	<br>
+	<table class="table">
+		<tr>
+			<td colspan="4"><h5 class="titlecenter">USUARIOS ATENDIDOS<h5></td>
+		</tr>
+		<tr>
+			<td>ADULTOS MAYORES (60 EN ADELANTE)</td>
+			<td>{{ mayores }}</td>
+			<td>NIÑOS PREESCOLARES (3 A 5 AÑOS)</td>
+			<td>{{ preescolar }}</td>
+		</tr>
+		<tr>
+			<td>ADULOS (19 A 59 AÑOS)</td>
+			<td>{{ adultos }}</td>
+			<td>USUARIOS CON CAPACIDADES DIFERENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>JÓVENES (13 A 19 AÑOS)</td>
+			<td> {{ jovenes }}</td>
+			<td>DIFERENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>NIÑOS (6 A 12 AÑOS)</td>
+			<td>{{ ninos }}</td>
+			<td>TOTAL DE USUARIOS</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="4"><h5 class="titlecenter">LIBROS CONSULTADOS<h5></td>
+		</tr>
+		<tr>
+			<td>COLECCIÓN CONSULTA</td>
+			<td>{{ consulta }}</td>
+			<td>COLECCIÓN INFANTIL</td>
+			<td>{{ infantil }}</td>
+		</tr>
+		<tr>
+			<td>COLECCIÓN GENERAL</td>
+			<td>{{ general }}</td>
+			<td>MATERIAL AUDIOVISUAL</td>
+			<td>{{ audiovisual }}</td>
+		</tr>
+		<tr>
+			<td>MATERIAL PARA DEBILES VICUALES E INVIDENTES</td>
+			<td>{{ debilesvisuales }}</td>
+			<td>TOTAL DE ACERVO CONSULTADO</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="4"><h5 class="titlecenter">SERVICIO DE PRÉSTAMO A DOMICILIO<h5></td>
+		</tr>
+		<tr>
+			<td>CREDENCIALES EXPEDIDAS</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>LIBROS PRESTADOS A DOMICILIO</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="4"><h5 class="titlecenter">ACTIVIDADES DE FOMENTO DE LA LECTURA<h5></td>
+		</tr>
+		<tr>
+			<td>ADULTOS MAYORES (60 EN ADELANTE)</td>
+			<td></td>
+			<td>ASISTENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ADULOS (19 A 59 AÑOS)</td>
+			<td></td>
+			<td>ASISTENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>JÓVENES (13 A 19 AÑOS)</td>
+			<td></td>
+			<td>ASISTENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>NIÑOS (6 A 12 AÑOS)</td>
+			<td></td>
+			<td>ASISTENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>NIÑOS PREESCOLARES (3 A 5 AÑOS)</td>
+			<td></td>
+			<td>ASISTENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>USUARIOS CON CAPACIDADES DIFERENTES</td>
+			<td></td>
+			<td>ASISTENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="4"><h5 class="titlecenter">VISITAS GUIADAS<h5></td>
+		</tr>
+		<tr>
+			<td>NÚM. DE VISITAS GUIADAS</td>
+			<td></td>
+			<td>ASISTENTES</td>
+			<td></td>
+		</tr>
+		<tr>
+			<td colspan="4"><h5 class="titlecenter">MODULO DE SERVICIOS DIGITALES<h5></td>
+		</tr>
+		<tr>
+			<td>ADULOS</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>JÓVENES</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>NIÑOS</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>USUARIOS CON CAPACIDADES DIFERENTES</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>NÚMERO DE CURSOS REALIZADOS</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>ASISTENTES A LOS CURSOS</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+		<tr>
+			<td>NÚMERO DE SUGERENCIAS BIBLIOGRAFICAS</td>
+			<td></td>
+			<td></td>
+			<td></td>
+		</tr>
+	</table>
+	NÚMERO DE ACTIVIDADES LIBRO DEL MES                       ASISTENTES
+	OBSERVACIONES
+</div>
+{% endblock %}

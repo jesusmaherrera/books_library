@@ -1,8 +1,38 @@
 {% extends "loan/base.html" %}
 {% block title %}Clacificaciones{% endblock %}
 {% block content %}
+
+
+<table class="table-hover">
+	<tr>
+		<th>
+			Fecha de Prestamo
+		</th>
+		<th>
+			Fecha de Devolución
+		</th>
+		<th>
+			Tipo
+		</th>
+		<th>
+			Usuario
+		</th>
+	</tr>
 {% for Loan in Loans %}
-	<a href="/loan/{{ Loan.id }}">{{Loan.user}}<br>
-	{{Loan.loan_date}}<br></a>
+	<tr>
+		<td>
+			{{Loan.loan_date}}
+		</td>
+		<td>
+			{{ Loan.delivery_date }}
+		</td>
+		<td>
+			{{ Loan.loan_type }}
+		</td>
+		<td>
+			<a href="/loan/{{ Loan.id }}">{{Loan.user}}</a>
+		</td>
+	</tr>
 {% endfor %}
+</table>
 {% endblock %}

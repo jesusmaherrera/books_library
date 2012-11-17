@@ -11,6 +11,10 @@ class BookClassificationManageForm(forms.ModelForm):
 	class Meta:
 		model = BookClassification
 
+class BookSubClassificationManageForm(forms.ModelForm):
+	class Meta:
+		model = BookSubClassification
+
 class LibraryUserManageForm(forms.ModelForm):
 	class Meta:
 		model = LibraryUser	 

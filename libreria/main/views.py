@@ -1,3 +1,4 @@
+#encoding:utf-8
 from django.shortcuts import render_to_response, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
@@ -89,6 +90,36 @@ def bookclassificationsView(request):
 	BookClassifications = BookClassification.objects.all()
 	c = {'Classifications':BookClassifications}
   	return render_to_response('classification/classifications.html', c, context_instance=RequestContext(request))
+
+#################################
+##                             ##
+##   Books SubClasifications   ##
+##                             ##
+#################################
+
+def  booksubclassification_manageView(request, id = None, template_name='subclassification/subclassification_manage.html'):
+	if id:
+		booksubclassificationI = get_object_or_404(BookSubClassification, pk=id)
+	else:
+		booksubclassificationI =  BookSubClassification()
+
+	if request.method == 'POST':
+		BookSubClassificationForm = BookSubClassificationManageForm(request.POST, request.FILES, instance=booksubclassificationI)
+		if BookSubClassificationForm.is_valid():
+			BookSubClassificationForm.save()
+			BookSubClassifications = BookSubClassification.objects.all()
+			c = {'SubClassifications':BookSubClassifications}
+			return render_to_response('subclassification/subclassifications.html', c, context_instance=RequestContext(request))
+	else:
+	 	BookSubClassificationForm = BookSubClassificationManageForm(instance=booksubclassificationI)
+
+	return render_to_response(template_name, {'SubClassificationForm': BookSubClassificationForm,}
+			,context_instance = RequestContext(request))
+
+def booksubclassificationsView(request):
+	BookSubClassifications = BookSubClassification.objects.all()
+	c = {'SubClassifications':BookSubClassifications}
+  	return render_to_response('subclassification/subclassifications.html', c, context_instance=RequestContext(request))
 
 #################################
 ##                             ##
@@ -186,3 +217,21 @@ def loan_manage_inlineView(request, id = None, template_name='loan/loan_manage_i
 	 	formset = BookLoan_formset(instance=loanI)
 
 	return render_to_response(template_name, {'LoanForm': LoanForm, 'formset': formset}, context_instance=RequestContext(request))
+
+def loansReportView(request):
+	mayores = Loan.objects.filter(user__age__gte=60).count()
+	adultos = Loan.objects.filter(user__age__lt=60).filter(user__age__gte=19).count()
+	jovenes = Loan.objects.filter(user__age__lt=19).filter(user__age__gte=13).count()
+	ninos = Loan.objects.filter(user__age__lt=13).filter(user__age__gte=6).count()
+	preescolar = Loan.objects.filter(user__age__lt=6).filter(user__age__gte=3).count()
+
+	consulta = BookLoan.objects.filter(book__book_classification__name='CONSULTA').count()
+	general = BookLoan.objects.filter(book__book_classification__name='GENERAL').count()
+	debilesvisuales = BookLoan.objects.filter(book__book_classification__name='MATERIAL PARA DÉBILES VISUALES E INVIDENTES ').count()
+	infantil = BookLoan.objects.filter(book__book_classification__name='INFANTIL').count()
+	audiovisual = BookLoan.objects.filter(book__book_classification__name='MATERIAL AUDIO VISUAL').count()
+	
+	
+
+	c = {'mayores':mayores,'adultos':adultos,'jovenes':jovenes,'ninos':ninos,'preescolar':preescolar,'consulta':consulta,'general': general, 'debilesvisuales':debilesvisuales,'infantil':infantil,'audiovisual':audiovisual}
+  	return render_to_response('loan/loansReport.html', c, context_instance=RequestContext(request))

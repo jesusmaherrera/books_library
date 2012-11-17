@@ -24,9 +24,14 @@ urlpatterns = patterns('',
     (r'^bookclassification/$', views.bookclassification_manageView),
     (r'^bookclassification/(?P<id>\d+)/', views.bookclassification_manageView),
 
+    (r'^booksubclassifications/$', views.booksubclassificationsView),
+    (r'^booksubclassification/$', views.booksubclassification_manageView),
+    (r'^booksubclassification/(?P<id>\d+)/', views.booksubclassification_manageView),
+
     (r'^loans/$', views.loansView),
     (r'^loan/$', views.loan_manage_inlineView),
     (r'^loan/(?P<id>\d+)/', views.loan_manage_inlineView),
+    (r'^loansReport/$', views.loansReportView),
 
 	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),
