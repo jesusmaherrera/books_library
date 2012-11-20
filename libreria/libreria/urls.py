@@ -15,6 +15,7 @@ urlpatterns = patterns('',
     (r'^users/$', views.usersView),
     (r'^user/$', views.user_manageView),
     (r'^user/(?P<id>\d+)/', views.user_manageView),
+    (r'^user/delete/(?P<id>\d+)/', views.delete_user),
 
     (r'^guarantors/$', views.guarantorsView),
     (r'^guarantor/$', views.guarantor_manageView),
@@ -31,7 +32,11 @@ urlpatterns = patterns('',
     (r'^loans/$', views.loansView),
     (r'^loan/$', views.loan_manage_inlineView),
     (r'^loan/(?P<id>\d+)/', views.loan_manage_inlineView),
+    (r'^loan/delete/(?P<id>\d+)/', views.delete_loan),
+    
     (r'^loansReport/$', views.loansReportView),
+    (r'^loansReportR/$', views.loansReportRView),
+
 
 	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
     url(r'^admin/', include(admin.site.urls)),

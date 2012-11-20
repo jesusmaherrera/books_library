@@ -1,38 +1,89 @@
 {% extends "loan/base.html" %}
+{% block style_css %}
+<link rel='stylesheet' href='{{STATIC_URL}}css/redmond/jquery-ui-1.8.23.custom.css'/>
+{% endblock %}
 {% block title %}Clacificaciones{% endblock %}
+{% block js_code %}
+<script>  
+$(document).ready(function() {
+	$(".btnPrint").printPage();
+	$('#id_start').datetimepicker({ dateFormat: 'yy-mm-dd',});
+	$('#id_end').datetimepicker({ dateFormat: 'yy-mm-dd',});
+
+	$(".btnPrint").attr("href",'/loansReportR/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
+
+	$('#id_start').change(function() {
+		$(".btnPrint").attr("href",'/loansReportR/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
+	});
+
+});
+</script>
+{% endblock %}
 {% block content %}
-
-
-<table class="table-hover">
-	<tr>
-		<th>
-			Fecha de Prestamo
-		</th>
-		<th>
-			Fecha de Devolución
-		</th>
-		<th>
-			Tipo
-		</th>
-		<th>
-			Usuario
-		</th>
-	</tr>
-{% for Loan in Loans %}
-	<tr>
-		<td>
-			{{Loan.loan_date}}
-		</td>
-		<td>
-			{{ Loan.delivery_date }}
-		</td>
-		<td>
-			{{ Loan.loan_type }}
-		</td>
-		<td>
-			<a href="/loan/{{ Loan.id }}">{{Loan.user}}</a>
-		</td>
-	</tr>
-{% endfor %}
-</table>
+<div class="pagecontent">
+	<div span="span6">
+		<form action="/loansReport/" method="get">
+			<input id="id_start" name="start" class="span2" type="text" value="{{ fechaInicio }}"></input>
+			<input id="id_end" name="end" class="span2" type="text" value="{{ fechaFin }}"></input>
+			<input class="btn btn-primary" type="submit" name="_btn" value="Filtrar">
+			<a class="btn btn-success" href="/loan/">Nuevo</a>
+		</form>
+	</div>
+	<table class="table">
+		<tr>
+			<th>Id</th>
+			<th>
+				Fecha de Prestamo
+			</th>
+			<th>
+				Fecha de Devolución
+			</th>
+			<th>
+				Tipo
+			</th>
+			<th>
+				Usuario
+			</th>
+			<th>
+				Opciones
+			</th>
+		</tr>
+		{% for Loan in Loans %}
+		<div id="myModal{{ Loan.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3 id="myModalLabel">Seguro que Deseas Eliminar</h3>
+			</div>
+			<div class="modal-body">
+				<h4>Al eliminar un Radio</h4>
+				<p style="color:red;">Ya no sera posible recuperar sus datos de nuevo</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal">Close</button>
+				<a href="/loan/delete/{{ Loan.id }}/" class="btn btn-primary">Estoy Seguro</a>
+			</div>
+		</div>
+		<tr>
+			<td>
+				<a href="/loan/{{ Loan.id }}">{{Loan.id}}</a>
+			</td>
+			<td>
+				{{Loan.loan_date}}
+			</td>
+			<td>
+				{{ Loan.delivery_date }}
+			</td>
+			<td>
+				{{ Loan.loan_type }}
+			</td>
+			<td>
+				{{Loan.user}}
+			</td>
+			<td style="text-align:center;">
+				<a href='#myModal{{ Loan.id}}' data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-trash"></i></a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+</div>
 {% endblock %}

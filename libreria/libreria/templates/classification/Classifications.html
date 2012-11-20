@@ -1,12 +1,21 @@
 {% extends "book/base.html" %}
 {% block title %}Clacificaciones{% endblock %}
 {% block content %}
-<ul class="polaroids">
-	{% for Classification in Classifications %}
-	<li>
-		<a href='/bookclassification/{{Classification.id}}' title='{{Classification.name}}'><img src='{{MEDIA_URL}}{{Classification.image}}' style="height: 150px; width: 100px; margin-top:.5em; margin-bottom:.5em;"/></a>
-		
-	</li>
-	{% endfor %}
-</ul>
+<div class="pagecontent">
+	<div span="span6">
+		<form action="/loansReport/" method="get">
+			<input id="id_filtro" name="filtro" class="span5" type="text" value="" placeholder="Nombre de Clasificacion"></input>
+			<input class="btn btn-primary" type="submit" name="_btn" value="Filtrar">
+			<a class="btn btn-success" href="/bookclassification/">Nueva</a>
+		</form>
+	</div>
+	<ul class="polaroids">
+		{% for Classification in Classifications %}
+		<li>
+			<a href='/bookclassification/{{Classification.id}}' title='{{Classification.name}}'><img src='{{MEDIA_URL}}{{Classification.image}}' style="height: 150px; width: 100px; margin-top:.5em; margin-bottom:.5em;"/></a>
+			
+		</li>
+		{% endfor %}
+	</ul>
+</div>
 {% endblock %}

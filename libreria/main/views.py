@@ -4,6 +4,7 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.template import RequestContext
 from main.models import Book, BookClassification, LibraryUser, Guarantor, Loan
 from main.forms import BookManageForm, BookClassificationManageForm, LibraryUserManageForm, GuarantorManageForm, LoanManageForm
+import datetime, time
 from main.forms import *
 
 from django.forms.formsets import formset_factory, BaseFormSet
@@ -11,9 +12,9 @@ from django.forms.models import inlineformset_factory
 
 #@login_required(login_url='/login/')
 def index(request):
-	Books = Book.objects.all()
-	c = {'Books':Books}
-  	return render_to_response('index.html', c, context_instance=RequestContext(request))
+	Loans = Loan.objects.all()
+	c = {'Loans':Loans}
+  	return render_to_response('loan/loans.html', c, context_instance=RequestContext(request))
 
 #################################
 ##                             ##
@@ -132,6 +133,14 @@ def usersView(request):
 	c = {'Users':Users}
   	return render_to_response('user/users.html', c, context_instance=RequestContext(request))
 
+def delete_user(request, id = None):
+	user = get_object_or_404(LibraryUser, pk=id)
+	user.delete()
+	
+	Users = LibraryUser.objects.all()
+	c = {'Users':Users}
+  	return render_to_response('user/users.html', c, context_instance=RequestContext(request))
+  	
 def user_manageView(request, id = None, template_name='user/user_manage.html'):
 	if id:
 		userI = get_object_or_404(LibraryUser, pk=id)
@@ -187,6 +196,14 @@ def guarantor_manageView(request, id = None, template_name='guarantor/guarantor_
 ##                             ##
 #################################
 
+def delete_loan(request, id = None):
+	loan = get_object_or_404(Loan, pk=id)
+	loan.delete()
+	
+	Loans = Loan.objects.all()
+	c = {'Loans':Loans}
+  	return render_to_response('loan/loans.html', c, context_instance=RequestContext(request))
+
 def loansView(request):
 	Loans = Loan.objects.all()
 	c = {'Loans':Loans}
@@ -218,20 +235,53 @@ def loan_manage_inlineView(request, id = None, template_name='loan/loan_manage_i
 
 	return render_to_response(template_name, {'LoanForm': LoanForm, 'formset': formset}, context_instance=RequestContext(request))
 
-def loansReportView(request):
-	mayores = Loan.objects.filter(user__age__gte=60).count()
-	adultos = Loan.objects.filter(user__age__lt=60).filter(user__age__gte=19).count()
-	jovenes = Loan.objects.filter(user__age__lt=19).filter(user__age__gte=13).count()
-	ninos = Loan.objects.filter(user__age__lt=13).filter(user__age__gte=6).count()
-	preescolar = Loan.objects.filter(user__age__lt=6).filter(user__age__gte=3).count()
+def loansReportView(request, template_name='loan/loansReport.html'):
+	if request.GET['start'] !='':
+		fechaInicio = request.GET['start']
+		fechaFin = request.GET['end']
+	else:
+		fechaInicio=datetime.now().strftime("%Y-%m-01"+" %H:%M")
+		fechaFin =datetime.now().strftime("%Y-%m-%d %H:%M")
 
-	consulta = BookLoan.objects.filter(book__book_classification__name='CONSULTA').count()
-	general = BookLoan.objects.filter(book__book_classification__name='GENERAL').count()
-	debilesvisuales = BookLoan.objects.filter(book__book_classification__name='MATERIAL PARA DÉBILES VISUALES E INVIDENTES ').count()
-	infantil = BookLoan.objects.filter(book__book_classification__name='INFANTIL').count()
-	audiovisual = BookLoan.objects.filter(book__book_classification__name='MATERIAL AUDIO VISUAL').count()
-	
-	
+	if request.GET['_btn'] == 'Imprimir Reporte':
+			template_name='loan/loansReportR.html'
 
-	c = {'mayores':mayores,'adultos':adultos,'jovenes':jovenes,'ninos':ninos,'preescolar':preescolar,'consulta':consulta,'general': general, 'debilesvisuales':debilesvisuales,'infantil':infantil,'audiovisual':audiovisual}
-  	return render_to_response('loan/loansReport.html', c, context_instance=RequestContext(request))
+	fechaInicioO = datetime.strptime(fechaInicio, '%Y-%m-%d %H:%M')	
+
+	mayores = Loan.objects.filter(user__age__gte=60).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+	adultos = Loan.objects.filter(user__age__lt=60).filter(user__age__gte=19).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+	jovenes = Loan.objects.filter(user__age__lt=19).filter(user__age__gte=13).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+	ninos = Loan.objects.filter(user__age__lt=13).filter(user__age__gte=6).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+	preescolar = Loan.objects.filter(user__age__lt=6).filter(user__age__gte=3).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+
+	consulta = BookLoan.objects.filter(book__book_classification__name='CONSULTA').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	general = BookLoan.objects.filter(book__book_classification__name='GENERAL').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	debilesvisuales = BookLoan.objects.filter(book__book_classification__name='MATERIAL PARA DÉBILES VISUALES E INVIDENTES ').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	infantil = BookLoan.objects.filter(book__book_classification__name='INFANTIL').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	audiovisual = BookLoan.objects.filter(book__book_classification__name='MATERIAL AUDIO VISUAL').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	now = datetime.now()
+	c = {'mayores':mayores,'adultos':adultos,'jovenes':jovenes,'ninos':ninos,'preescolar':preescolar,'consulta':consulta,'general': general, 'debilesvisuales':debilesvisuales,'infantil':infantil,'audiovisual':audiovisual,'fechaActual':now.strftime("%d/%m/%Y a las %H:%M:%S"),'fechaInicio':fechaInicio,'fechaFin':fechaFin,'fechaInicioO':fechaInicioO}
+  	return render_to_response(template_name, c, context_instance=RequestContext(request))
+
+def loansReportRView(request, template_name='loan/loansReportR.html'):
+	if request.GET['start'] !='':
+		fechaInicio = request.GET['start']
+		fechaFin = request.GET['end']
+	else:
+		fechaInicio=datetime.now().strftime("%Y-%m-01"+" %H:%M")
+		fechaFin =datetime.now().strftime("%Y-%m-%d %H:%M")
+
+	mayores = Loan.objects.filter(user__age__gte=60).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+	adultos = Loan.objects.filter(user__age__lt=60).filter(user__age__gte=19).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+	jovenes = Loan.objects.filter(user__age__lt=19).filter(user__age__gte=13).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+	ninos = Loan.objects.filter(user__age__lt=13).filter(user__age__gte=6).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+	preescolar = Loan.objects.filter(user__age__lt=6).filter(user__age__gte=3).filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin).count()
+
+	consulta = BookLoan.objects.filter(book__book_classification__name='CONSULTA').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	general = BookLoan.objects.filter(book__book_classification__name='GENERAL').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	debilesvisuales = BookLoan.objects.filter(book__book_classification__name='MATERIAL PARA DÉBILES VISUALES E INVIDENTES ').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	infantil = BookLoan.objects.filter(book__book_classification__name='INFANTIL').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	audiovisual = BookLoan.objects.filter(book__book_classification__name='MATERIAL AUDIO VISUAL').filter(loan__loan_date__gt=fechaInicio).filter(loan__loan_date__lte=fechaFin).count()
+	now = datetime.now()
+	c = {'mayores':mayores,'adultos':adultos,'jovenes':jovenes,'ninos':ninos,'preescolar':preescolar,'consulta':consulta,'general': general, 'debilesvisuales':debilesvisuales,'infantil':infantil,'audiovisual':audiovisual,'fechaActual':now.strftime("%d/%m/%Y a las %H:%M:%S"),'fechaInicio':fechaInicio,'fechaFin':fechaFin}
+  	return render_to_response(template_name, c, context_instance=RequestContext(request))

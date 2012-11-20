@@ -50,8 +50,60 @@ ol.code code { background: none; }
 
 .report{
 	background-color: white;
+	text-shadow: none;
+	min-width: 600px;
+	max-width: 800px;
+
+	margin: auto;
+	padding: 1em;
+}
+
+.pagecontent{
+	background-color: rgba(255, 255, 255, 0.49);
+	text-align: center;
+	padding: 4em;
+	margin-left: 1em;
+	margin-right: 1em;
+}
+
+.report h6{
+	line-height:.5em;
+}
+
+.report .labelR{
+	font-weight: bold;
 }
 
 .titlecenter{
 	text-align: center;
+	clear: both;
+}
+.smallText{
+	font-size: .6em;
+}
+
+.reportTable{
+	border-style: solid;
+	padding: 1em;
+}
+
+.reportTable td{
+	padding: 0;
+	line-height:1.6em;
+}
+
+.reportData{
+
+	text-align: left;
+	width: 120px;
+}
+
+#logo{
+	width: 130px;
+	height: 65px;
+}
+
+.tableNone{
+	border: none;
+	vertical-align: bottom;
 }

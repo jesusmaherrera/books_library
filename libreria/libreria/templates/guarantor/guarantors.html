@@ -1,7 +1,18 @@
-{% extends "book/base.html" %}
+{% extends "guarantor/base.html" %}
 {% block title %}Clacificaciones{% endblock %}
 {% block content %}
-{% for Guarantor in Guarantors %}
-	{{Guarantor.name}}<br>
-{% endfor %}
+<div class="pagecontent">
+	<div span="span6">
+		<form action="/loansReport/" method="get">
+			<input id="id_filtro" name="filtro" class="span5" type="text" value="" placeholder="Nombre de Fiador"></input>
+			<input class="btn btn-primary" type="submit" name="_btn" value="Filtrar">
+			<a class="btn btn-success" href="/guarantor/">Nuevo</a>
+		</form>
+	</div>
+	
+	{% for Guarantor in Guarantors %}
+	<a href="/guarantor/{{ Guarantor.id }}">{{Guarantor.name}}</a>
+	<br>
+	{% endfor %}
+</div>
 {% endblock %}

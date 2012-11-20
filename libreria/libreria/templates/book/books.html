@@ -1,12 +1,21 @@
 {% extends "book/base.html" %}
 {% block title %}Libros{% endblock %}
 {% block content %}
-<ul class="polaroids">
-	{% for Book in Books %}
-	<li>
-		<a href='/book/{{Book.id}}' title='{{ Book.name }}'><img src='{{MEDIA_URL}}{{Book.image}}' style="height: 150px; width: 100px; margin-top:.5em; margin-bottom:.5em;" ></a>
-	</li>
-	{% endfor %}
-</ul>
+<div class="pagecontent">
+	<div span="span6">
+		<form action="/loansReport/" method="get">
+			<input id="id_filtro" name="filtro" class="span5" type="text" value="" placeholder="Nombre de libro, Autor, Editorial, Clasificacion, SubClasificacion"></input>
+			<input class="btn btn-primary" type="submit" name="_btn" value="Filtrar">
+			<a class="btn btn-success" href="/book/">Nuevo</a>
+		</form>
+	</div>
+	<ul class="polaroids">
+		{% for Book in Books %}
+		<li>
+			<a href='/book/{{Book.id}}' title='{{ Book.name }}'><img src='{{MEDIA_URL}}{{Book.image}}' style="height: 150px; width: 100px; margin-top:.5em; margin-bottom:.5em;" ></a>
+		</li>
+		{% endfor %}
+	</ul>
+</div>
 <br>
 {% endblock %}

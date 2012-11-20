@@ -84,6 +84,7 @@ class BookLoan(models.Model):
 	BOOK_STATE = (
 		('B', 'BUENO'),
 		('N', 'NORMAL'),
+		('M', 'MALO'),
 		)
 	state = models.CharField(max_length=10, choices=BOOK_STATE,
 		default='N')

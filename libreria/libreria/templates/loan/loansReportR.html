@@ -1,20 +1,8 @@
-{% extends "loan/base.html" %}
-{% block style_css %}
-<link rel='stylesheet' href='{{STATIC_URL}}css/redmond/jquery-ui-1.8.23.custom.css'/>
-{% endblock %}
+{% extends "baseR.html" %}
 {% block js_code %}
  <script>  
   $(document).ready(function() {
-    $(".btnPrint").printPage();
-    $('#id_start').datetimepicker({ dateFormat: 'yy-mm-dd',});
-    $('#id_end').datetimepicker({ dateFormat: 'yy-mm-dd',});
-    
-    $(".btnPrint").attr("href",'/loansReportR/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
-
-    $('#id_start').change(function() {
-    	$(".btnPrint").attr("href",'/loansReportR/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
-    });
-
+    $(this).popup();
   });
   </script>
 {% endblock %}
@@ -22,19 +10,12 @@
 {% block content %}
 
 <div class="report">
-	<div >
-		<div class="span4">
-			<img class="span4" id="logo" src='{{STATIC_URL}}img/logotipocnca.jpg'/>
-		</div>
-		<div span="span6">
-			<form action="/loansReport/" method="get">
-				<input id="id_start" name="start" class="span2" type="text" value="{{ fechaInicio }}"></input>
-				<input id="id_end" name="end" class="span2" type="text" value="{{ fechaFin }}"></input>
-				<input class="btn " type="submit" name="_btn" value="Search">
-				<a class="btn btnPrint" href="/loansReportR/?start=2012-11-01+18:12&end=2012-11-19+18:12&_btn=Search" id="btnPrint">Imprimir Reporte</a>
-			</form>
-		</div>
-	</div>
+	<table class="tableNone">
+		<tr>
+			<td colspan="2"> <img class="span4" id="logo" src='{{STATIC_URL}}img/logotipocnca.jpg'/></td>
+			<td colspan="6">Reporte del Periodo: {{ fechaInicio}} a {{fechaFin}}</td>
+		</tr>
+	</table>
 	<div class="titlecenter">
 		<h6>RED NACIONAL DE BIBLIOTECAS PÚBLICAS</h6>
 		<h6>ESTADISTICA MENSUAL</h6>

@@ -23,7 +23,7 @@ $(function() {
   $('#id_orders_table tbody tr').formset({
     prefix: '{{ formset.prefix }}',
     addCssClass:'btn btn-success',
-    addText:'Agregar Servicio',
+    addText:'Agregar Libro',
     deleteText:'',
   });
 
@@ -60,6 +60,7 @@ $(function() {
     <label class="control-label" for="id_code">Usuario</label>
     <div class="controls">
       {{ LoanForm.user }}
+      <a href="/user/" TARGET="_blank"><i class="icon-plus"></i></a>
     </div>
   </div>
   <div class="control-group">
