@@ -8,7 +8,8 @@
     $(".btnPrint").printPage();
     $('#id_start').datetimepicker({ dateFormat: 'yy-mm-dd',});
     $('#id_end').datetimepicker({ dateFormat: 'yy-mm-dd',});
-    
+    $(".btnPrint").attr("href",'/loansReportR/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
+
     $(".btnPrint").attr("href",'/loansReportR/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
 
     $('#id_start').change(function() {
@@ -31,7 +32,7 @@
 				<input id="id_start" name="start" class="span2" type="text" value="{{ fechaInicio }}"></input>
 				<input id="id_end" name="end" class="span2" type="text" value="{{ fechaFin }}"></input>
 				<input class="btn " type="submit" name="_btn" value="Search">
-				<a class="btn btnPrint" href="/loansReportR/?start=2012-11-01+18:12&end=2012-11-19+18:12&_btn=Search" id="btnPrint">Imprimir Reporte</a>
+				<a class="btn btnPrint" href="" id="btnPrint">Imprimir Reporte</a>
 			</form>
 		</div>
 	</div>

@@ -9,6 +9,7 @@ urlpatterns = patterns('',
     (r'^books/$', views.booksView),
     (r'^book/$', views.book_manageView),
     (r'^book/(?P<id>\d+)/', views.book_manageView),
+    (r'^book/delete/(?P<id>\d+)/', views.delete_book),
     
     (r'^search/$','views.xhr_test'),
 
@@ -20,14 +21,16 @@ urlpatterns = patterns('',
     (r'^guarantors/$', views.guarantorsView),
     (r'^guarantor/$', views.guarantor_manageView),
     (r'^guarantor/(?P<id>\d+)/', views.guarantor_manageView),
+    (r'^guarantor/delete/(?P<id>\d+)/', views.delete_guarantor),
 
     (r'^bookclassifications/$', views.bookclassificationsView),
     (r'^bookclassification/$', views.bookclassification_manageView),
     (r'^bookclassification/(?P<id>\d+)/', views.bookclassification_manageView),
-
+    (r'^bookclassification/delete/(?P<id>\d+)/', views.delete_bookclassification),
     (r'^booksubclassifications/$', views.booksubclassificationsView),
     (r'^booksubclassification/$', views.booksubclassification_manageView),
     (r'^booksubclassification/(?P<id>\d+)/', views.booksubclassification_manageView),
+    (r'^booksubclassification/delete/(?P<id>\d+)/', views.delete_booksubclassification),
 
     (r'^loans/$', views.loansView),
     (r'^loan/$', views.loan_manage_inlineView),

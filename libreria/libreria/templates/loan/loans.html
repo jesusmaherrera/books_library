@@ -10,10 +10,10 @@ $(document).ready(function() {
 	$('#id_start').datetimepicker({ dateFormat: 'yy-mm-dd',});
 	$('#id_end').datetimepicker({ dateFormat: 'yy-mm-dd',});
 
-	$(".btnPrint").attr("href",'/loansReportR/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
+	$(".btnPrint").attr("href",'/loans/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
 
 	$('#id_start').change(function() {
-		$(".btnPrint").attr("href",'/loansReportR/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
+		$(".btnPrint").attr("href",'/loans/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
 	});
 
 });
@@ -22,7 +22,7 @@ $(document).ready(function() {
 {% block content %}
 <div class="pagecontent">
 	<div span="span6">
-		<form action="/loansReport/" method="get">
+		<form action="/loans/" method="get">
 			<input id="id_start" name="start" class="span2" type="text" value="{{ fechaInicio }}"></input>
 			<input id="id_end" name="end" class="span2" type="text" value="{{ fechaFin }}"></input>
 			<input class="btn btn-primary" type="submit" name="_btn" value="Filtrar">

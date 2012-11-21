@@ -3,16 +3,51 @@
 {% block content %}
 <div class="pagecontent">
 	<div span="span6">
-		<form action="/loansReport/" method="get">
-			<input id="id_filtro" name="filtro" class="span5" type="text" value="" placeholder="Nombre de Fiador"></input>
+		<form action="/guarantors/" method="get">
+			<input id="id_filtro" name="filtro" class="span5" type="text" value="{{ filtro }}" placeholder="Nombre de Fiador"></input>
 			<input class="btn btn-primary" type="submit" name="_btn" value="Filtrar">
 			<a class="btn btn-success" href="/guarantor/">Nuevo</a>
 		</form>
 	</div>
-	
-	{% for Guarantor in Guarantors %}
-	<a href="/guarantor/{{ Guarantor.id }}">{{Guarantor.name}}</a>
-	<br>
-	{% endfor %}
+	<table class="table">
+		<tr>
+			<th>Id</th>
+			<th>Nombre</th>
+			<th>Edad</th>
+			<th>Telefono</th>
+			<th>Ocupacion</th>
+			<th>Institucion</th>
+			<th>Opciones</th>
+		</tr>
+		{% for Guarantor in Guarantors %}
+		<div id="myModal{{ Guarantor.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3 id="myModalLabel">Seguro que Deseas Eliminar</h3>
+			</div>
+			<div class="modal-body">
+				<h4>Al eliminar este Fiador</h4>
+				<p style="color:red;">Ya no sera posible recuperar sus datos de nuevo</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal">Close</button>
+				<a href="/guarantor/delete/{{ Guarantor.id }}/" class="btn btn-primary">Estoy Seguro</a>
+			</div>
+		</div>
+		<tr>
+			<td><a href="/guarantor/{{ Guarantor.id }}">{{Guarantor.id}}</a></td>
+			<td>{{Guarantor.name}}</td>
+			<td>{{Guarantor.age}}</td>
+			<td>{{Guarantor.phone}}</td>
+			<td>{{Guarantor.occupation}}</td>
+			<td>{{Guarantor.institution}}</td>
+			<td style="text-align:center;">
+				<a href='#myModal{{ Guarantor.id}}' data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-trash"></i></a>
+			</td>
+		</tr>
+
+		{% endfor %}
+	</table>
+
 </div>
 {% endblock %}

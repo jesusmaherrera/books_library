@@ -2,6 +2,20 @@
 {% block title %}Libros{% endblock %}
 {% block js_code %}{% endblock %}
 {% block content %}
+<div id="myModal{{ id }}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3 id="myModalLabel">Seguro que Deseas Eliminar</h3>
+  </div>
+  <div class="modal-body">
+    <h4>Al eliminar esta SubClasificacion</h4>
+    <p style="color:red;">Ya no sera posible recuperar sus datos de nuevo</p>
+  </div>
+  <div class="modal-footer">
+    <button class="btn" data-dismiss="modal">Close</button>
+    <a href="/booksubclassification/delete/{{ id }}/" class="btn btn-primary">Estoy Seguro</a>
+  </div>
+</div>
 <h2>Sub Clacificacion</h2>
 <form method="post" class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
   {% csrf_token %}
@@ -28,6 +42,7 @@
   <div class="control-group">
     <div class="controls">
       <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+      <a href='#myModal{{id}}' data-toggle="modal" class="btn btn-danger"><i class="icon-trash"></i> Eliminar</a>
     </div>
   </div>
 </form>

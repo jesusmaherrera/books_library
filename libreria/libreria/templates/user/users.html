@@ -3,8 +3,8 @@
 {% block content %}
 <div class="pagecontent">
 	<div span="span6">
-		<form action="/loansReport/" method="get">
-			<input id="id_filtro" name="filtro" class="span5" type="text" value="" placeholder="Nombre de usuario, Fiador"></input>
+		<form action="/users/" method="get">
+			<input id="id_filtro" name="filtro" class="span5" type="text" value="{{ filtro }}" placeholder="Nombre de usuario, Nombre de Fiador de Usuario"></input>
 			<input class="btn btn-primary" type="submit" name="_btn" value="Filtrar">
 			<a class="btn btn-success" href="/user/">Nuevo</a>
 		</form>

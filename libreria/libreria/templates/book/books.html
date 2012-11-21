@@ -3,19 +3,66 @@
 {% block content %}
 <div class="pagecontent">
 	<div span="span6">
-		<form action="/loansReport/" method="get">
-			<input id="id_filtro" name="filtro" class="span5" type="text" value="" placeholder="Nombre de libro, Autor, Editorial, Clasificacion, SubClasificacion"></input>
+		<form action="/books/" method="get">
+			<input id="id_filtro" name="filtro" class="span5" type="text" value="{{ filtro }}" placeholder="Nombre de libro, Autor, Editorial, Clasificacion, SubClasificacion"></input>
 			<input class="btn btn-primary" type="submit" name="_btn" value="Filtrar">
 			<a class="btn btn-success" href="/book/">Nuevo</a>
 		</form>
 	</div>
-	<ul class="polaroids">
+	<table class="table">
+		<tr>
+			<th>Id</th>
+			<th style="width: 400px;">Libro</th>
+			<th>Clasificacion</th>
+			<th>Opciones</th>
+		</tr>
+		{% for Book in Books %}
+		<div id="myModal{{ Book.id}}" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+				<h3 id="myModalLabel">Seguro que Deseas Eliminar</h3>
+			</div>
+			<div class="modal-body">
+				<h4>Al eliminar este Libro</h4>
+				<p style="color:red;">Ya no sera posible recuperar sus datos de nuevo</p>
+			</div>
+			<div class="modal-footer">
+				<button class="btn" data-dismiss="modal">Close</button>
+				<a href="/book/delete/{{ Book.id }}/" class="btn btn-primary">Estoy Seguro</a>
+			</div>
+		</div>
+		<tr>
+			<td>{{ Book.id }}</td>
+			<td>
+				
+					<img src='{{MEDIA_URL}}{{Book.image}}' style="height: 75px; width: 50px; margin-top:.5em; margin-right:.5em; margin-bottom:.5em;"  class="align-left"/>
+				
+					<a href='/book/{{Book.id}}' title=''>{{ Book.name }}</a>
+					<br>
+					<small>
+					<b>Autor:</b>{{ Book.autor }}<br>
+					<b>Editorial:</b> {{ Book.editorial }}<br>
+					<b>Vol.</b> {{ Book.volume }}, <b>Ejemplar No:</b> {{ Book.exemplar }}
+					</small> 
+			</td>
+			<td>
+				<b>Clasificacion:</b> {{ Book.book_classification.name }}
+				<br>
+				<b>SubClasificacion:</b> {{ Book.book_subclassification.name }}
+			</td>
+			<td style="text-align:center;">
+				<a href='#myModal{{ Book.id}}' data-toggle="modal" class="btn btn-mini btn-danger"><i class="icon-trash"></i></a>
+			</td>
+		</tr>
+		{% endfor %}
+	</table>
+	<!-- <ul class="polaroids">
 		{% for Book in Books %}
 		<li>
 			<a href='/book/{{Book.id}}' title='{{ Book.name }}'><img src='{{MEDIA_URL}}{{Book.image}}' style="height: 150px; width: 100px; margin-top:.5em; margin-bottom:.5em;" ></a>
 		</li>
 		{% endfor %}
-	</ul>
+	</ul> -->
 </div>
 <br>
 {% endblock %}

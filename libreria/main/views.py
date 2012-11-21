@@ -6,6 +6,7 @@ from main.models import Book, BookClassification, LibraryUser, Guarantor, Loan
 from main.forms import BookManageForm, BookClassificationManageForm, LibraryUserManageForm, GuarantorManageForm, LoanManageForm
 import datetime, time
 from main.forms import *
+from django.db.models import Q
 
 from django.forms.formsets import formset_factory, BaseFormSet
 from django.forms.models import inlineformset_factory
@@ -39,6 +40,20 @@ def xhr_test(request):
     return HttpResponse(message)
 
 def booksView(request):
+	filtro = request.GET['filtro']
+	
+	Books = Book.objects.filter(
+		Q(name__icontains=filtro) | Q(autor__icontains=filtro) | Q(editorial__icontains=filtro)| 
+		Q(book_classification__name__icontains=filtro) | Q(book_subclassification__name__icontains=filtro)
+		)
+
+	c = {'Books':Books,'filtro':filtro}
+  	return render_to_response('book/books.html', c, context_instance=RequestContext(request))
+
+def delete_book(request, id = None):
+	book = get_object_or_404(Book, pk=id)
+	book.delete()
+	
 	Books = Book.objects.all()
 	c = {'Books':Books}
   	return render_to_response('book/books.html', c, context_instance=RequestContext(request))
@@ -84,10 +99,20 @@ def  bookclassification_manageView(request, id = None, template_name='classifica
 	else:
 	 	BookClassificationForm = BookClassificationManageForm(instance=bookclassificationI)
 
-	return render_to_response(template_name, {'ClassificationForm': BookClassificationForm,}
+	return render_to_response(template_name, {'ClassificationForm': BookClassificationForm,'id':id}
 			,context_instance = RequestContext(request))
 
 def bookclassificationsView(request):
+	filtro = request.GET['filtro']
+
+	BookClassifications = BookClassification.objects.filter(name__icontains=filtro)
+	c = {'Classifications':BookClassifications,'filtro':filtro}
+  	return render_to_response('classification/classifications.html', c, context_instance=RequestContext(request))
+
+def delete_bookclassification(request, id = None):
+	bookClassification = get_object_or_404(BookClassification, pk=id)
+	bookClassification.delete()
+	
 	BookClassifications = BookClassification.objects.all()
 	c = {'Classifications':BookClassifications}
   	return render_to_response('classification/classifications.html', c, context_instance=RequestContext(request))
@@ -114,14 +139,24 @@ def  booksubclassification_manageView(request, id = None, template_name='subclas
 	else:
 	 	BookSubClassificationForm = BookSubClassificationManageForm(instance=booksubclassificationI)
 
-	return render_to_response(template_name, {'SubClassificationForm': BookSubClassificationForm,}
+	return render_to_response(template_name, {'SubClassificationForm': BookSubClassificationForm,'id':id}
 			,context_instance = RequestContext(request))
 
 def booksubclassificationsView(request):
+	filtro = request.GET['filtro']
+	BookSubClassifications = BookSubClassification.objects.filter(
+		Q(name__icontains=filtro)| Q(book_clasification__name__icontains=filtro)
+		)
+	c = {'SubClassifications':BookSubClassifications,'filtro':filtro}
+  	return render_to_response('subclassification/subclassifications.html', c, context_instance=RequestContext(request))
+
+def delete_booksubclassification(request, id = None):
+	bookSubClassification = get_object_or_404(BookSubClassification, pk=id)
+	bookSubClassification.delete()
+	
 	BookSubClassifications = BookSubClassification.objects.all()
 	c = {'SubClassifications':BookSubClassifications}
   	return render_to_response('subclassification/subclassifications.html', c, context_instance=RequestContext(request))
-
 #################################
 ##                             ##
 ##            Users            ##
@@ -129,8 +164,11 @@ def booksubclassificationsView(request):
 #################################
 
 def usersView(request):
-	Users = LibraryUser.objects.all()
-	c = {'Users':Users}
+	filtro = request.GET['filtro']
+	Users = LibraryUser.objects.filter(
+		Q(name__icontains=filtro)| Q(guarantor__name__icontains=filtro)
+		)
+	c = {'Users':Users,'filtro':filtro}
   	return render_to_response('user/users.html', c, context_instance=RequestContext(request))
 
 def delete_user(request, id = None):
@@ -167,6 +205,16 @@ def user_manageView(request, id = None, template_name='user/user_manage.html'):
 #################################
 
 def guarantorsView(request):
+	filtro = request.GET['filtro']
+
+	Guarantors = Guarantor.objects.filter(name__icontains=filtro)
+	c = {'Guarantors':Guarantors,'filtro':filtro}
+  	return render_to_response('guarantor/guarantors.html', c, context_instance=RequestContext(request))
+
+def delete_guarantor(request, id = None):
+	guarantor = get_object_or_404(Guarantor, pk=id)
+	guarantor.delete()
+	
 	Guarantors = Guarantor.objects.all()
 	c = {'Guarantors':Guarantors}
   	return render_to_response('guarantor/guarantors.html', c, context_instance=RequestContext(request))
@@ -205,8 +253,15 @@ def delete_loan(request, id = None):
   	return render_to_response('loan/loans.html', c, context_instance=RequestContext(request))
 
 def loansView(request):
-	Loans = Loan.objects.all()
-	c = {'Loans':Loans}
+	if request.GET['start'] !='':
+		fechaInicio = request.GET['start']
+		fechaFin = request.GET['end']
+	else:
+		fechaInicio=datetime.now().strftime("%Y-%m-01"+" %H:%M")
+		fechaFin =datetime.now().strftime("%Y-%m-%d %H:%M")
+
+	Loans = Loan.objects.filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin)
+	c = {'Loans':Loans,'fechaInicio':fechaInicio,'fechaFin':fechaFin}
   	return render_to_response('loan/loans.html', c, context_instance=RequestContext(request))
 
 def loan_manage_inlineView(request, id = None, template_name='loan/loan_manage_inline.html'):
