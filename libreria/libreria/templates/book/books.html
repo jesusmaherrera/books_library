@@ -11,7 +11,6 @@
 	</div>
 	<table class="table">
 		<tr>
-			<th>Id</th>
 			<th style="width: 400px;">Libro</th>
 			<th>Clasificacion</th>
 			<th>Opciones</th>
@@ -32,18 +31,17 @@
 			</div>
 		</div>
 		<tr>
-			<td>{{ Book.id }}</td>
 			<td>
 				
-					<img src='{{MEDIA_URL}}{{Book.image}}' style="height: 75px; width: 50px; margin-top:.5em; margin-right:.5em; margin-bottom:.5em;"  class="align-left"/>
+				<img src='{{MEDIA_URL}}{{Book.image}}' style="height: 75px; width: 50px; margin-top:.5em; margin-right:.5em; margin-bottom:.5em;"  class="align-left"/>
 				
-					<a href='/book/{{Book.id}}' title=''>{{ Book.name }}</a>
-					<br>
-					<small>
+				<a href='/book/{{Book.id}}' title=''>{{ Book.name }}</a>
+				<br>
+				<small>
 					<b>Autor:</b>{{ Book.autor }}<br>
 					<b>Editorial:</b> {{ Book.editorial }}<br>
 					<b>Vol.</b> {{ Book.volume }}, <b>Ejemplar No:</b> {{ Book.exemplar }}
-					</small> 
+				</small> 
 			</td>
 			<td>
 				<b>Clasificacion:</b> {{ Book.book_classification.name }}
@@ -55,6 +53,22 @@
 			</td>
 		</tr>
 		{% endfor %}
+
+		<div class="pagination pagination-mini">
+			<ul>
+				{% if Books.has_previous %}
+				<li><a href="?filtro={{ filtro }}&page={{ Books.previous_page_number }}">Anterior</a></li>
+				{% else %}
+				<li class="disabled"><a href="#">Anterior</a></li>
+				{% endif %}
+				<li class="disabled"><a href="#">Pagina {{ Books.number }} de {{ Books.paginator.num_pages }}.</a></li>
+				{% if Books.has_next %}
+				<li><a href="?filtro={{ filtro }}&page={{ Books.next_page_number }}">Siguiente</a></li>
+				{% else %}
+				<li class="disabled"><a href="#">Siguiente</a></li>
+				{% endif %}	
+			</ul>
+		</div>
 	</table>
 	<!-- <ul class="polaroids">
 		{% for Book in Books %}

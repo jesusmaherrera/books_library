@@ -12,8 +12,16 @@ $(document).ready(function() {
 
 	$(".btnPrint").attr("href",'/loans/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
 
+	$("#prevBtn").attr("href",'/loans/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search&page={{ Loans.previous_page_number }}');
+
+	$("#nextBtn").attr("href",'/loans/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search&page={{ Loans.next_page_number }}');
+
 	$('#id_start').change(function() {
 		$(".btnPrint").attr("href",'/loans/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search');
+
+		$("#prevBtn").attr("href",'/loans/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search&page={{ Loans.previous_page_number }}');
+
+		$("#nextBtn").attr("href",'/loans/?start='+ encodeURIComponent($('#id_start').attr("value"))+'&end='+ encodeURIComponent($('#id_end').attr("value"))+ '&_btn=Search&page={{ Loans.next_page_number }}');
 	});
 
 });
@@ -84,6 +92,21 @@ $(document).ready(function() {
 			</td>
 		</tr>
 		{% endfor %}
+		<div class="pagination pagination-mini">
+			<ul>
+				{% if Loans.has_previous %}
+				<li><a id="prevBtn" href="">Anterior</a></li>
+				{% else %}
+				<li class="disabled"><a href="#">Anterior</a></li>
+				{% endif %}
+				<li class="disabled"><a href="#">Pagina {{ Loans.number }} de {{ Loans.paginator.num_pages }}.</a></li>
+				{% if Loans.has_next %}
+				<li><a id="nextBtn" href="">Siguiente</a></li>
+				{% else %}
+				<li class="disabled"><a href="#">Siguiente</a></li>
+				{% endif %}	
+			</ul>
+		</div>
 	</table>
 </div>
 {% endblock %}

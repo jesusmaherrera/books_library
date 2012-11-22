@@ -48,6 +48,21 @@
 			</td>
 		</tr>
 		{% endfor %}
+		<div class="pagination pagination-mini">
+			<ul>
+				{% if Users.has_previous %}
+				<li><a href="?filtro={{ filtro }}&page={{ Users.previous_page_number }}">Anterior</a></li>
+				{% else %}
+				<li class="disabled"><a href="#">Anterior</a></li>
+				{% endif %}
+				<li class="disabled"><a href="#">Pagina {{ Users.number }} de {{ Users.paginator.num_pages }}.</a></li>
+				{% if Users.has_next %}
+				<li><a href="?filtro={{ filtro }}&page={{ Users.next_page_number }}">Siguiente</a></li>
+				{% else %}
+				<li class="disabled"><a href="#">Siguiente</a></li>
+				{% endif %}	
+			</ul>
+		</div>
 	</table>
 </div>
 {% endblock %}

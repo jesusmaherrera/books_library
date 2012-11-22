@@ -11,6 +11,9 @@ from django.db.models import Q
 from django.forms.formsets import formset_factory, BaseFormSet
 from django.forms.models import inlineformset_factory
 
+#Paginacion
+from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
+
 #@login_required(login_url='/login/')
 def index(request):
 	Loans = Loan.objects.all()
@@ -41,22 +44,28 @@ def xhr_test(request):
 
 def booksView(request):
 	filtro = request.GET['filtro']
-	
-	Books = Book.objects.filter(
-		Q(name__icontains=filtro) | Q(autor__icontains=filtro) | Q(editorial__icontains=filtro)| 
-		Q(book_classification__name__icontains=filtro) | Q(book_subclassification__name__icontains=filtro)
-		)
 
-	c = {'Books':Books,'filtro':filtro}
-  	return render_to_response('book/books.html', c, context_instance=RequestContext(request))
+	book_list = Book.objects.filter(Q(name__icontains=filtro) | Q(autor__icontains=filtro) | Q(editorial__icontains=filtro)| Q(book_classification__name__icontains=filtro) | Q(book_subclassification__name__icontains=filtro))
+	paginator = Paginator(book_list, 10) # Show 25 contacts per page
+	page = request.GET.get('page')
+
+	#####PARA PAGINACION##############
+	try:
+		books = paginator.page(page)
+	except PageNotAnInteger:
+	    # If page is not an integer, deliver first page.
+	    books = paginator.page(1)
+	except EmptyPage:
+	    # If page is out of range (e.g. 9999), deliver last page of results.
+	    books = paginator.page(paginator.num_pages)
+	c = {'Books':books,'filtro':filtro}
+	return render_to_response('book/books.html', c, context_instance=RequestContext(request))
 
 def delete_book(request, id = None):
 	book = get_object_or_404(Book, pk=id)
 	book.delete()
 	
-	Books = Book.objects.all()
-	c = {'Books':Books}
-  	return render_to_response('book/books.html', c, context_instance=RequestContext(request))
+	return HttpResponseRedirect('/books/?filtro=')
 
 def book_manageView(request, id = None, template_name='book/book_manage.html'):
 	if id:
@@ -68,9 +77,7 @@ def book_manageView(request, id = None, template_name='book/book_manage.html'):
 		BookForm = BookManageForm(request.POST, request.FILES, instance=bookI)
 		if BookForm.is_valid():
 			BookForm.save()
-			Books = Book.objects.all()
-			c = {'Books':Books}
-			return render_to_response('book/books.html', c, context_instance=RequestContext(request))
+			return HttpResponseRedirect('/books/?filtro=')
 	else:
 	 	BookForm = BookManageForm(instance=bookI)
 
@@ -165,19 +172,32 @@ def delete_booksubclassification(request, id = None):
 
 def usersView(request):
 	filtro = request.GET['filtro']
-	Users = LibraryUser.objects.filter(
+	user_list = LibraryUser.objects.filter(
 		Q(name__icontains=filtro)| Q(guarantor__name__icontains=filtro)
 		)
-	c = {'Users':Users,'filtro':filtro}
+
+	paginator = Paginator(user_list, 10) # Show 25 contacts per page
+	page = request.GET.get('page')
+
+	#####PARA PAGINACION##############
+	try:
+		users = paginator.page(page)
+	except PageNotAnInteger:
+	    # If page is not an integer, deliver first page.
+	    users = paginator.page(1)
+	except EmptyPage:
+	    # If page is out of range (e.g. 9999), deliver last page of results.
+	    users = paginator.page(paginator.num_pages)
+
+
+	c = {'Users':users,'filtro':filtro}
   	return render_to_response('user/users.html', c, context_instance=RequestContext(request))
 
 def delete_user(request, id = None):
 	user = get_object_or_404(LibraryUser, pk=id)
 	user.delete()
 	
-	Users = LibraryUser.objects.all()
-	c = {'Users':Users}
-  	return render_to_response('user/users.html', c, context_instance=RequestContext(request))
+	return HttpResponseRedirect('/users/?filtro=')
   	
 def user_manageView(request, id = None, template_name='user/user_manage.html'):
 	if id:
@@ -189,9 +209,7 @@ def user_manageView(request, id = None, template_name='user/user_manage.html'):
 		UserForm = LibraryUserManageForm(request.POST, request.FILES, instance=userI)
 		if UserForm.is_valid():
 			UserForm.save()
-			Users = LibraryUser.objects.all()
-			c = {'Users':Users}
-			return render_to_response('user/users.html', c, context_instance=RequestContext(request))
+			return HttpResponseRedirect('/users/?filtro=')
 	else:
 	 	UserForm = LibraryUserManageForm(instance=userI)
 
@@ -207,17 +225,29 @@ def user_manageView(request, id = None, template_name='user/user_manage.html'):
 def guarantorsView(request):
 	filtro = request.GET['filtro']
 
-	Guarantors = Guarantor.objects.filter(name__icontains=filtro)
-	c = {'Guarantors':Guarantors,'filtro':filtro}
+	guarantor_list = Guarantor.objects.filter(name__icontains=filtro)
+	paginator = Paginator(guarantor_list, 10) # Show 25 contacts per page
+	page = request.GET.get('page')
+
+	#####PARA PAGINACION##############
+	try:
+		guarantors = paginator.page(page)
+	except PageNotAnInteger:
+	    # If page is not an integer, deliver first page.
+	    guarantors = paginator.page(1)
+	except EmptyPage:
+	    # If page is out of range (e.g. 9999), deliver last page of results.
+	    guarantors = paginator.page(paginator.num_pages)
+
+
+	c = {'Guarantors':guarantors,'filtro':filtro}
   	return render_to_response('guarantor/guarantors.html', c, context_instance=RequestContext(request))
 
 def delete_guarantor(request, id = None):
 	guarantor = get_object_or_404(Guarantor, pk=id)
 	guarantor.delete()
 	
-	Guarantors = Guarantor.objects.all()
-	c = {'Guarantors':Guarantors}
-  	return render_to_response('guarantor/guarantors.html', c, context_instance=RequestContext(request))
+	return HttpResponseRedirect('/guarantors/?filtro=')
 
 def guarantor_manageView(request, id = None, template_name='guarantor/guarantor_manage.html'):
 	if id:
@@ -229,9 +259,7 @@ def guarantor_manageView(request, id = None, template_name='guarantor/guarantor_
 		GuarantorForm = GuarantorManageForm(request.POST, request.FILES, instance=guarantorI)
 		if GuarantorForm.is_valid():
 			GuarantorForm.save()
-			Guarantors = Guarantor.objects.all()
-			c = {'Guarantors':Guarantors}
-			return render_to_response('guarantor/guarantors.html', c, context_instance=RequestContext(request))
+			return HttpResponseRedirect('/guarantors/?filtro=')
 	else:
 	 	GuarantorForm = GuarantorManageForm(instance=guarantorI)
 
@@ -248,9 +276,7 @@ def delete_loan(request, id = None):
 	loan = get_object_or_404(Loan, pk=id)
 	loan.delete()
 	
-	Loans = Loan.objects.all()
-	c = {'Loans':Loans}
-  	return render_to_response('loan/loans.html', c, context_instance=RequestContext(request))
+	return HttpResponseRedirect('/loans/?start=')
 
 def loansView(request):
 	if request.GET['start'] !='':
@@ -260,8 +286,22 @@ def loansView(request):
 		fechaInicio=datetime.now().strftime("%Y-%m-01"+" %H:%M")
 		fechaFin =datetime.now().strftime("%Y-%m-%d %H:%M")
 
-	Loans = Loan.objects.filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin)
-	c = {'Loans':Loans,'fechaInicio':fechaInicio,'fechaFin':fechaFin}
+	loan_list = Loan.objects.filter(loan_date__gt=fechaInicio).filter(loan_date__lte=fechaFin)
+	paginator = Paginator(loan_list, 10) # Show 25 contacts per page
+	page = request.GET.get('page')
+
+	#####PARA PAGINACION##############
+	try:
+		loans = paginator.page(page)
+	except PageNotAnInteger:
+	    # If page is not an integer, deliver first page.
+	    loans = paginator.page(1)
+	except EmptyPage:
+	    # If page is out of range (e.g. 9999), deliver last page of results.
+	    loans = paginator.page(paginator.num_pages)
+
+
+	c = {'Loans':loans,'fechaInicio':fechaInicio,'fechaFin':fechaFin}
   	return render_to_response('loan/loans.html', c, context_instance=RequestContext(request))
 
 def loan_manage_inlineView(request, id = None, template_name='loan/loan_manage_inline.html'):
@@ -280,10 +320,7 @@ def loan_manage_inlineView(request, id = None, template_name='loan/loan_manage_i
 			LoanForm.save()
 			formset.save()
 
-			Loans = Loan.objects.all()
-			c = {'Loans':Loans}
-
-			return render_to_response(template_name, {'LoanForm': LoanForm, 'formset': formset}, context_instance=RequestContext(request))
+			return HttpResponseRedirect('/loans/?start=')
 	else:
 	 	LoanForm = LoanManageForm(instance=loanI)
 	 	formset = BookLoan_formset(instance=loanI)

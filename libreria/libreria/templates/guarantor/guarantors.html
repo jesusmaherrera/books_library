@@ -47,6 +47,21 @@
 		</tr>
 
 		{% endfor %}
+		<div class="pagination pagination-mini">
+			<ul>
+				{% if Guarantors.has_previous %}
+				<li><a href="?filtro={{ filtro }}&page={{ Guarantors.previous_page_number }}">Anterior</a></li>
+				{% else %}
+				<li class="disabled"><a href="#">Anterior</a></li>
+				{% endif %}
+				<li class="disabled"><a href="#">Pagina {{ Guarantors.number }} de {{ Guarantors.paginator.num_pages }}.</a></li>
+				{% if Guarantors.has_next %}
+				<li><a href="?filtro={{ filtro }}&page={{ Guarantors.next_page_number }}">Siguiente</a></li>
+				{% else %}
+				<li class="disabled"><a href="#">Siguiente</a></li>
+				{% endif %}	
+			</ul>
+		</div>
 	</table>
 
 </div>
