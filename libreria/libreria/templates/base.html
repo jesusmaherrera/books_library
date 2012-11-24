@@ -40,15 +40,24 @@
             <li class="dropdown">
               <a id="drop1" href="#" role="button" class="dropdown-toggle" data-toggle="dropdown"> <i class="icon-file"></i>Reportes<b class="caret"></b></a>
               <ul class="dropdown-menu" role="menu" aria-labelledby="drop1">
-                <li><a tabindex="-1" href="/loansReport/?start=&end=&_btn=">PRESTAMOS</a></li>
+                <li><a tabindex="-1" href="/loansReport/?start=&end=&_btn=">Estadistica Mensual</a></li>
+                <li><a tabindex="-1" href="/generalloansReport/?start=&end=&_btn=">General</a></li>
               </ul>
             </li>
+            <li><a href="{{STATIC_URL}}pdf/Manual de Usuario.pdf" TARGET="_blank"> <i class="icon-question-sign"></i> Ayuda</a></li>
           </ul>
         </div>
       </div>
     </div>
   </header>	
   <div id="breadcrumbs" style="margin-left: 35px;">
+    <div style="text-align:right; height:2em; clear:both;">
+      {% if user.username %}
+       Administrador <a class="btn btn-small btn-danger" href="/logout/">  Cerrar Sesión</a>
+      {% else %}
+        <a class="btn btn-small btn-success" href="/login/">Iniciar Sesión</a>
+      {% endif %}
+    </div>
     {% block breadcrumb %}<a href="/"><i class="icon-home"></i></a>{% endblock %}
   </div>
   <section class='content'>

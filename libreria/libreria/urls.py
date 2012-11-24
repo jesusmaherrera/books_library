@@ -1,7 +1,8 @@
 from django.conf.urls import patterns, include, url
 from django.contrib import admin
 from django.conf import settings
-from main import views
+from libreria.main import views
+
 admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -12,6 +13,12 @@ urlpatterns = patterns('',
     (r'^book/delete/(?P<id>\d+)/', views.delete_book),
     
     (r'^search/$','views.xhr_test'),
+
+    
+
+    #(r'^appusers/$', views.users),
+    #(r'^Appuser/$', views.appuser_manageView),
+    #(r'^Appuser/(?P<id>\d+)/$', views.appuser_manageView),
 
     (r'^users/$', views.usersView),
     (r'^user/$', views.user_manageView),
@@ -39,10 +46,12 @@ urlpatterns = patterns('',
     
     (r'^loansReport/$', views.loansReportView),
     (r'^loansReportR/$', views.loansReportRView),
+    (r'^generalloansReport/$', views.generalloansReportView),
 
-
-	url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    url(r'^admin/', include(admin.site.urls)),
+    url(r'^login/$',views.ingresar),
+    url(r'^logout/$', views.logoutUser),
+	#url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    #url(r'^admin/', include(admin.site.urls)),
     #imagenes
     url(r'^media/(?P<path>.*)$','django.views.static.serve',
         {'document_root':settings.MEDIA_ROOT,}
@@ -55,5 +64,5 @@ urlpatterns = patterns('',
     # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Uncomment the next line to enable the admin:
-    # url(r'^admin/', include(admin.site.urls)),
+   # url(r'^admin/', include(admin.site.urls)),
 )

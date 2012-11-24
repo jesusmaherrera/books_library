@@ -1,0 +1,47 @@
+{% extends "loan/base.html" %}
+{% block style_css %}
+<link rel='stylesheet' href='{{STATIC_URL}}css/redmond/jquery-ui-1.8.23.custom.css'/>
+{% endblock %}
+{% block js_code %}
+ <script>  
+  $(document).ready(function() {
+    $('#id_start').datetimepicker({ dateFormat: 'yy-mm-dd',});
+    $('#id_end').datetimepicker({ dateFormat: 'yy-mm-dd',});
+  });
+  </script>
+{% endblock %}
+{% block title %}Reporte General{% endblock %}
+{% block content %}
+
+<div class="report">
+	<div >
+		<div class="span4">
+			<img class="span4" id="logo" src='{{STATIC_URL}}img/logotipocnca.jpg'/>
+		</div>
+		<div span="span6">
+			<form action="/generalloansReport/" method="get">
+				<input id="id_start" name="start" class="span2" type="text" value="{{ fechaInicio }}"></input>
+				<input id="id_end" name="end" class="span2" type="text" value="{{ fechaFin }}"></input>
+				<input class="btn " type="submit" name="_btn" value="Buscar">
+			</form>
+		</div>
+	</div>
+	<div class="titlecenter">
+		<h6>REPORTE GENERAL</h6>
+	</div>
+	<table class="table reportTable smallText">
+		<tr>
+			<td class="labelR">PRESTAMOS A DOMICILIO</td>
+			<td class="reportData">{{ libros }}</td>
+			<td class="labelR">CONSULTAS EN BIBLIOTECA</td>
+			<td class="reportData">{{ librosDomicilio }}</td>
+		</tr>
+		<tr>
+			<td class="labelR">USO DE INTERNET</td>
+			<td class="reportData"> {{ internet }}</td>
+			<td class="labelR"></td>
+			<td class="reportData"></td>
+		</tr>
+	</table>
+</div>
+{% endblock %}

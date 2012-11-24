@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+
+{% block title %}App Users{% endblock %}
+{% block style_css %}
+
+{% endblock %}
+{% block content %}
+<form method="post"  class="form-horizontal" action="" width="400px"  enctype='multipart/form-data'>
+  {% csrf_token %}
+  <br>
+  {{ UserForm.errors }}
+   <table>{{ UserForm }}</table>
+  <div class="control-group">
+    <div class="controls">
+      <input type="submit" class="btn btn-primary" value="Guardar y Salir" />
+    </div>
+  </div>
+</form>
+{% endblock %}
