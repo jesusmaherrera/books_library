@@ -3,6 +3,7 @@ from django.contrib import admin
 from django.conf import settings
 from libreria.main import views
 
+from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = patterns('',
